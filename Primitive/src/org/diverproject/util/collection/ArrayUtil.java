@@ -1,0 +1,223 @@
+package org.diverproject.util.collection;
+
+import java.lang.reflect.Array;
+
+/**
+ * <p><h1>Utilitário para Vetores</h1></p>
+ *
+ * <p>Classe do tipo utilitário, portanto deve possuir apenas procedimentos estáticos.
+ * Seu construtor é privado de modo que não seja possível construir instâncias de tal.
+ * Todos os procedimentos irão trabalhar com vetores ou algo similar e são públicos.</p>
+ *
+ * <p>Esse utilitário está na parte de coleções pois é o único lugar da biblioteca,
+ * do qual irá trabalhar com vetores, que são usados internamente pelas coleções
+ * para armazenar os dados nesta inseridos como deve ser feito as estruturas.</p>
+ *
+ * @author Andrew
+ */
+
+public class ArrayUtil
+{
+	/**
+	 * Construtor privado para que não haja instâncias de ArrayUtil.
+	 */
+
+	private ArrayUtil()
+	{
+		
+	}
+
+	/**
+	 * <p>Procedimento do qual deve fazer com que todos os elementos de um vetor,
+	 * passam uma única casa (índice) para o lado esquerdo de modo que assim,
+	 * o índice especificado seja considerado como excluído do vetor.</p>
+	 * <p>No final desse procedimento o último elemento restante da lista estará
+	 * duplicado devido a movimentação forçada dos elementos, por tanto este
+	 * será definido sempre como null de modo que dê a impressão de movimentação
+	 * de todos os elementos do vetor para a esquerda de uma única vez.</p>
+	 * @param array vetor do qual terá um determinado índice removido.
+	 * @param index número do índice do qual será perdido no vetor.
+	 * @return true se conseguir mover ou false por vetor ou índice inválido.
+	 */
+
+	public static boolean moveLeft(Object[] array, int index)
+	{
+		if (index < 0 || index >= array.length)
+			return false;
+
+		for (int i = index; i < array.length - 1; i++)
+			array[i] = array[i + 1];
+
+		try {
+			array[array.length - 1] = null;
+		} catch (Exception e) {
+			
+		}
+
+		return true;
+	}
+
+	/**
+	 * <p>Procedimento do qual deve fazer com que todos os elementos de um vetor,
+	 * passam uma única casa (índice) para o lado direito de modo que assim,
+	 * o índice especificado seja considerado como adicionado no vetor.</p>
+	 * <p>Relembrando de que o índice especificado será preenchido com o
+	 * valor null para que seja visto como um espaço livre no vetor trabalhado.</p>
+	 * @param array vetor do qual terá um determinado índice adicionado.
+	 * @param index número do índice do qual será inserido no vetor.
+	 * @return true se conseguir mover ou false por vetor ou índice inválido.
+	 */
+
+	public static boolean moveRight(Object[] array, int index)
+	{
+		if (index < 0 || index >= array.length)
+			return false;
+
+		for (int i = array.length - 1; i > index; i--)
+			array[i] = array[i - 1];
+
+		try {
+			array[index] = null;
+		} catch (Exception e) {
+			
+		}
+
+		return true;
+	}
+
+	/**
+	 * <p>Procedimento do qual irá redimensionar um determinado vetor especificado.
+	 * Esse redimensionamento é a construção de um novo vetor com tamanho definido.
+	 * Onde os elementos do vetor antigo serão passados para o novo vetor criado.</p>
+	 * <p>Caso falte espaço últimos elementos serão perdidos, em quanto se faltar,
+	 * os índices serão preenchidos com valores nulos ou zerado de acordo com o tipo.</p>
+	 * @param array vetor que será redimensionado e copiado os elementos
+	 * @param length comprimento do qual o novo vetor deverá possuir.
+	 * @return vetor construído com o comprimento e elementos passados.
+	 */
+
+	public static Object[] resizeTo(Object[] array, int length)
+	{
+		Object old[] = array;
+		array = new Object[length];
+
+		for (int i = 0; i < old.length && i < array.length; i++)
+			array[i] = old[i];
+
+		return array;
+	}
+
+	/**
+	 * <p>Procedimento do qual irá redimensionar um determinado vetor especificado.
+	 * Esse redimensionamento é a construção de um novo vetor com tamanho maior.
+	 * Onde os elementos do vetor antigo serão passados para o novo vetor criado.</p>
+	 * <p>Neste caso como sempre será aumentado o tamanho, todos os índices novos
+	 * serão preenchidos como valores automáticos do java (nulo ou zero).</p>
+	 * @param array vetor que será redimensionado e copiado os elementos
+	 * @param length comprimento do qual o novo vetor deverá possuir.
+	 * @return vetor construído com o comprimento e elementos passados.
+	 */
+
+	public static Object[] increseIn(Object[] array, int length)
+	{
+		if (array == null || (long) (array.length + length) > Integer.MAX_VALUE)
+			return null;
+
+		Object old[] = array;
+		Class<?> generic = Object.class;
+
+		length += array.length;
+		array = (Object[]) Array.newInstance(generic, length);
+
+		for (int i = 0; i < old.length && i < array.length; i++)
+			array[i] = old[i];
+
+		return array;
+	}
+
+	/**
+	 * <p>Procedimento do qual irá redimensionar um determinado vetor especificado.
+	 * Esse redimensionamento é a construção de um novo vetor com tamanho maior.
+	 * Onde os elementos do vetor antigo serão passados para o novo vetor criado.</p>
+	 * <p>Neste caso como sempre será aumentado o tamanho, todos os índices novos
+	 * serão preenchidos como valores automáticos do java (nulo ou zero).</p>
+	 * @param array vetor que será redimensionado e copiado os elementos
+	 * @param length comprimento do qual o novo vetor deverá possuir.
+	 * @param generic tipo de dados que será usado para criar o vetor.
+	 * @return vetor construído com o comprimento e elementos passados.
+	 */
+
+	public static Object[] increseIn(Object[] array, int length, Class<?> generic)
+	{
+		if (array == null || (long) (array.length + length) > Integer.MAX_VALUE)
+			return null;
+
+		Object old[] = array;
+
+		length += array.length;
+		array = (Object[]) Array.newInstance(generic, length);
+
+		for (int i = 0; i < old.length && i < array.length; i++)
+			array[i] = old[i];
+
+		return array;
+	}
+
+	/**
+	 * <p>Procedimento do qual irá redimensionar um determinado vetor especificado.
+	 * Esse redimensionamento é a construção de um novo vetor com tamanho menor.
+	 * Onde os elementos do vetor antigo serão passados para o novo vetor criado.</p>
+	 * <p>Neste caso como sempre será reduzido o tamanho em caso de falta de espaço,
+	 * ou seja, o novo tamanho é menor que a quantidade de elementos do antigo,
+	 * esses elementos serão perdidos do último índice até o tamanho do novo vetor.</p>
+	 * @param array vetor que será redimensionado e copiado os elementos
+	 * @param length comprimento do qual o novo vetor deverá possuir.
+	 * @return vetor construído com o comprimento e elementos passados.
+	 */
+
+	public static Object[] decreaseIn(Object[] array, int length)
+	{
+		if (array == null || length > array.length)
+			return null;
+
+		Object old[] = array;
+		Class<?> generic = Object.class;
+
+		length = array.length - length;
+		array = (Object[]) Array.newInstance(generic, length);
+
+		for (int i = 0; i < old.length && i < array.length; i++)
+			array[i] = old[i];
+
+		return array;
+	}
+
+	/**
+	 * <p>Procedimento do qual irá redimensionar um determinado vetor especificado.
+	 * Esse redimensionamento é a construção de um novo vetor com tamanho menor.
+	 * Onde os elementos do vetor antigo serão passados para o novo vetor criado.</p>
+	 * <p>Neste caso como sempre será reduzido o tamanho em caso de falta de espaço,
+	 * ou seja, o novo tamanho é menor que a quantidade de elementos do antigo,
+	 * esses elementos serão perdidos do último índice até o tamanho do novo vetor.</p>
+	 * @param array vetor que será redimensionado e copiado os elementos
+	 * @param length comprimento do qual o novo vetor deverá possuir.
+	 * @param generic tipo de dados que será usado para criar o vetor.
+	 * @return vetor construído com o comprimento e elementos passados.
+	 */
+
+	public static Object[] decreaseIn(Object[] array, int length, Class<?> generic)
+	{
+		if (array == null || length > array.length)
+			return null;
+
+		Object old[] = array;
+
+		length = array.length - length;
+		array = (Object[]) Array.newInstance(generic, length);
+
+		for (int i = 0; i < old.length && i < array.length; i++)
+			array[i] = old[i];
+
+		return array;
+	}
+}

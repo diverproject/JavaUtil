@@ -1,0 +1,608 @@
+20.11.2016 - 1.0.0.126
+- Movendo todos os projeto para um repositório no Github, versão inicial.
+
+08.11.2016 - 0.0.9.125
+- NodeList.remove estava entrando em loop infinito.
+- Novo método para obter a diferença de valor entre dois números, IntUtil.diff.
+
+03.11.2016 - 0.0.9.124
+- Nova lista que permite adicionar elementos em forma de nós e por índices com ou sem Comparable.
+
+03.11.2016 - 0.0.9.123
+- Time agora permite verificar se um determinado horário se equivale a null: "1970/01/01 00:00:00".
+- A iteração dos elementos em StringSimpleMap não estava sendo feita corretamente.
+
+28.10.2016 - 0.0.9.122
+- LogSystem estava causando problemas quando não era inicializado.
+- AbstractNumber causava NullPointerException em remove seguidos.
+- DynamicIndex não alocava corretamente índices duplicados se habilitado.
+- Iteração de itens e chaves corrigido, StringSimpleMap.
+
+28.10.2016 - 0.0.9.121
+- Problema durante uma correção na rev120 resolvido.
+
+25.10.2016 - 0.0.9.120
+- logExeceptionSource não estava funcionando adequadamente, LogSystem.
+
+24.10.2016 - 0.0.9.119
+- Dois novos métodos para ArrayUtil que permite definir o generic ao aumentar/diminuir um array.
+- AbstractIndex e DynamicIndex corrigidos quando necessário aumentar/diminuir o array interno.
+
+24.10.2016 - 0.0.9.118
+- OutputByteArray não estava efetuando o flush corretamente.
+- Correção na criação para saída de dados ao usar o PacketBuilder.
+
+24.10.2016 - 0.0.9.117
+- Conexão com banco de dados MySQL agora permite definir timeZone e legacyDatetimeCode.
+	- ObjectDescription também adicionado para o toString do mesmo.
+- Time agora pode ser convertido para Timestamp a fim de facilitar a persistência no banco de dados.
+
+24.10.2016 - 0.0.9.116
+- Novo internalLog para novo tipo de registro de mensagens logExceptionSource, LogSystem.
+
+08.10.2016 - 0.0.9.115
+- Enviando OutputPacket que deveriam ter sido enviado na rev114.
+
+08.10.2016 - 0.0.9.114
+- Pequena reforma na utilização de pacotes no projeto da Stream.
+	- Alguns pequenos problemas poderiam ser encontrados na relação Socket com Input|Output.
+
+08.10.2016 - 0.0.9.113
+- HexUtil.parse* devem retornar em UPPERCASE seus valores.
+
+08.10.2016 - 0.0.9.112
+- Corrigindo pré-fixo de exibição para mensagens do tipo Exception em LogSystem.
+- Iteração de AbstractIndex estava tentando dar cast no elemento ao invés do valor.
+- Novo método em AbstractList para facilitar facilitar possíveis codificações.
+	- LoopList irá usá-lo no momento e outros irão aderir ao mesmo.
+		- Não estava aumentando o tamanho da coleção.
+
+04.10.2016 - 0.0.9.111
+- InputReader e OutputWriter para trabalhar diretamente com arquivos em disco.
+
+04.10.2016 - 0.0.9.110
+- Três novos métodos em FloatUtil que existem em IntUtil: major, minor e compare.
+- Pequenas correções na documentação do projeto Service Manager.
+
+07.09.2016 - 0.0.9.109
+- DynamicIndex permite optar por possuir dois elementos com mesmo índice.
+- MySQL permite definir qual será a porta da conexão, padrão: 3306.
+- SocketUtil permite verificar se uma string é válido como endereço de IP.
+- TimerTick deve funcionar com valores numéricos em long ao invés de int.
+
+07.09.2016 - 0.0.9.108
+- Pequenas melhorias em Log.
+- Documentação corrigida (nome dos parâmetros) em LogPreferences.
+- LogSystem agora permite alterar da onde será mostrado a fonte do chamado.
+
+29.08.2016 - 0.0.9.107
+- Enviando Log e LogListener que não foram enviados durante a rev104.
+
+29.08.2016 - 0.0.9.106
+- InputByteArray e OutputByteArray não estava definindo length quando recebia os dados.
+- InputMapped deve saber quem o FileInputStream para poder fechá-lo quando necessário.
+- OutputMapped não estava escrevendo os dados apropriadamente, havia passado despercebido.
+- InputReader e OutputWriter adicionado para trabalhar com BufferedReader e BufferedWriter.
+
+29.08.2016 - 0.0.9.105
+- Agora increseIn sempre irá criar um vetor de Object e não tentar usar o tipo de um índice.
+	- Pode ocorrer problemas de cast dependendo dos objetos que estiverem armazenados.
+- Novos métodos para que StringExtend possa trabalhar de forma ainda mais dinâmica.
+- StringUtil recebe alguns métodos de replace mais dinâmicos do que o de String.
+	- Também foi documentado o método money que estava em branco.
+
+29.08.2016 - 0.0.9.104
+- Alterando a forma como o serviço para registro de mensagens irá funcionar.
+	 - Agora não irá escrever informações em um arquivo ou console.
+	 - Foi adicionado LogListener para que as mensagens registradas sejam encaminhadas.
+	 ~ LogSystem agora irá saber exatamente de onde se originou a chamada dos métodos log.
+- As funcionalidades de Log passam para LogSystem e Log se torna um objeto de registro.
+	- É usado para ser repassado aos LogListener contendo informações do registro.
+
+27.07.2016 - 0.0.8.103
+- InputPacket e OutputPacket para criar streams de dados através de sockets.
+- InputStream e OutputStream que utilizam InputStream e OutputStream do java.
+	- Não havia outro nome se não o mesmo para identificar essas streams.
+		- Podem ser feitos através de arquivos ou stream do java diretamente.
+
+27.07.2016 - 0.0.8.102
+- DefaultBufferData renomado para BufferArrayData conforme padrão de input e output.
+
+27.07.2016 - 0.0.8.101
+- Enviando todas estruturas de input, output, option e buffer para strem de dados.
+	- Foi modificado a estrutura e ajustado para melhor funcionamento e utilização.
+	- Agora há uma classe Generic que pode ser usada para qualquer tipo de stream.
+		- GenericStream, GenericBuffer, GenericInput e GenericOutput.
+
+27.07.2016 - 0.0.8.100
+- StreamFactory agora passa a ser uma classe contreta como seus respectivos Builder.
+	- Não há utilidade no uso de interfaces, pois não será preciso esconder informações.
+
+27.07.2016 - 0.0.8.99
+- Re-organização do projeto stream pela segunda vez, afim de torná-lo ainda mais dinâmico.
+- Será ainda liberado a implementação de algumas classes passando de package para public.
+- Temporariamente removido a implementação das classes, deixando apenas as interfaces.
+asdasd 
+27.07.2016 - 0.0.7.98
+- Problema onde ZipUtil não estava operando de forma adequada conforme esperado.
+
+25.07.2016 - 0.0.7.97
+- Bits foi enviado com a indexação na ordem dos bytes ao contrário.
+- Novo método para FileUtil que permite criar todos os diretórios de um File.
+
+25.07.2016 - 0.0.7.96
+- AbstractList não estava iterando corretamente os itens por iterator().
+- StringMap não inicializava iteração com o primeiro item da tabela.
+- Agora StringMap irá aceitar strings com chaves de caracteres ASCII 2 bytes.
+- VirtualFolder estava iterando sempre o mesmo item por não incrementar i.
+	- Modificado a forma como era feito o subIterator pois não funcionava as vezes.
+
+08.07.2016 - 0.0.7.95
+- Nova forma de utilização de streams através de InputOption e OutputOption.
+	- Essas streams permite trabalhar com dados em forma de opções.
+	- Cada opção tem um tipo de dado e um nome para identificá-lo.
+
+08.07.2016 - 0.0.6.94
+- Métodos makes de bits irão usar uma forma mais livre na utilização dos parâmetros.
+	- Será possível passar quantos quiser, sendo corrigidos por um método interno.
+	- Foi feito para realizar a redução de parâmetros por método limitados a 5.
+- Código fonte de old_version no projeto de Stream foi movido para branches.
+- AbstractNumber não estava funcionando 100% corretamente no método get.
+- Pequenas correções para que IntegerLargeMap:
+	- Método toArrayNode agora está funcionando de forma correta.
+	- Método get vai diretamente no node conforme a chave passada.
+
+27.05.2016 - 0.0.6.93
+- Redução da complexidade ciclomática em Format, separando algumas operações em métodos internos.
+
+23.05.2016 - 0.0.6.92
+- Correção na iteração dos elementos para AbstractNumber, estava pulando um índice do nó.
+- AbstractNumber não estava ordenando as keys de forma correta para um caso específico.
+- IntegerAvarageMap, IntegerLargeMap e IntegerLittleMap agora devem ordenar de forma correta.
+
+23.05.2016 - 0.0.6.91
+- Atualização do changelog do projeto.
+
+23.05.2016 - 0.0.6.90
+- Reduzindo complexidade ciclomática de mountDays() em DateUtil.
+- Reduzindo complexidade ciclomática de sizeOfPrimitive() em SizeUtil.
+- Correção no nome do método setWindowInterface() para setWindowsInterface(), SystemUtil.
+
+23.05.2016 - 0.0.6.89
+- DateUtil atualizado para funcionar em uma melhor forma tom toString.
+- FileUtil tinha um pequeno problema em adaptPath.
+- MessageUtil em showInput não exibia as mensagens corretamente.
+
+23.05.2016 - 0.0.6.88
+- DynamicIndex não estava adicionando elementos de forma correta.
+- Movido projeto Stream antigo para src/old_version.
+
+31.10.2015 - 0.0.6.87
+- Procedimento readAt não funcionava como o esperado (lógica do método).
+- Novo método adicionado para permitir ignorar uma quantidade de bytes.
+
+31.10.2015 - 0.0.6.86
+- DynamicList agora permite determinar o tamanho inicial para armazenar elementos.
+- DynamicMap não estava fazendo sua iteração corretamente dos elementos contidos.
+- Pequeno ajuste em StringUtil com split, renomeando variável para o mais correto.
+
+20.09.2015 - 0.0.6.85
+- FloatUtil não possuía conversão de string para float sem TryCatch.
+- Procedimento não considerava mensagens nulas em StringUtil.addStringException.
+
+20.09.2015 - 0.0.6.84
+- Todos os tipos de mapeamentos agora podem ser iterador por foreach.
+
+17.09.2015 - 0.0.6.83
+- Atualizando as classes de util.stream com suas respectivas documentações.
+- Renomeando duas classes para ficar de melhor entendimento e reduzir o tamanho:
+	- DefaultWriterOutputStream para DefaultWriterStream;
+	- DefaultReaderInputStream para DefaultReaderStream.
+- DefaultBuffer não vai mais trabalhar com um ByteArrayOutputStream.
+- Strings agora não salvam o seu tamanho, escrevem elas e inserem um null no final.
+- DefaultBufferData é quem vai implementar como será feito o salvamento de dados.
+	- Pequenas melhoras adicionais para o funcionamento de leitura e escrita.
+
+12.09.2015 - 0.0.6.82
+- Segunda correção do número de versões para acompanhar o número das revisões.
+
+12.09.2015 - 0.0.6.81
+- Bloqueando alguns arquivos desnecessário para serem enviados.
+- Correção do número de todas as versões para acompanhar o número das revisões.
+
+12.09.2015 - 0.0.6.80
+- Pequenos ajustes para o funcionamento apropriadamente para DefaultBuffer e DefaultBufferData.
+- Adicionado os toString() com ObjectDescription a todas as classes Default... necessárias.
+- Pequena correção com inversão de bytes tanto para escrita quanto para leitura destes.
+
+11.09.2015 - 0.0.6.79
+- Reenviando Stream que devido ao conteúdo antigo estava causando "problemas" no envio.
+
+11.09.2015 - 0.0.6.78
+- Novo sistema para criação de stream IO através de Factory Method, DefaultStreamFactory.
+
+11.09.2015 - 0.0.6.77
+- Adicionando nova classe para trabalhar com bytes e dados primitivos, Bits.
+- Documentação em Visual Studio para o sistema de stream.
+
+11.09.2015 - 0.0.5.76
+- Movendo stream de util.stream para util.streamold.
+	- Será adicionado um novo sistema de stream por Factory Method.
+
+03.09.2015 - 0.0.5.75
+- Duas novas estruturas de dados disponíveis:
+	- VirtualFolder funciona como uma pasta virtual, itens e subpastas.
+	- StringSimpleMap tem a mesma ideia de StringMap mas com menos chaves.
+
+31.08.2015 - 0.0.5.74
+- AbstractMap estava com problema durante containsKey e get.
+- StringMap não estava funcionando adequadamente como esperado em add.
+- FileUtil sofreu alguns ajustes/correções de documentação e funcionamento.
+- SizeUtil estava com mal funcionamento na formatação de toString(bytes).
+- Pequenas melhorias para evitar conteúdo desnecessário de UtilException.
+
+19.08.2015 - 0.0.5.73
+- Novas formas de registros com as de exceções.
+- Atualização das iterações com Map para obter MapItem.
+- MapElement deve funcionar apenas internamente nas classes.
+- MessageUtil agora possui exibição de mensagem que mata o programa.
+
+23.07.2015 - 0.0.5.72
+- Adicionando a possibilidade de se fazer uma iteração com Node.
+- Procedimento para verificar se uma string possui ou não valor booleano.
+- DynamicIndex não estava armazenando os elementos corretamente como esperado.
+- AbstractIndex deverá listar os elementos separados por vírgula como as outras coleções.
+- LogSystem agora dá a possibilidade de fazer registro com pré-fixos (nome da classe).
+
+23.07.2015 - 0.0.5.71
+- StringMap não iterava as chaves corretamente.
+
+23.07.2015 - 0.0.5.70
+- BitWise não funcionava adequadamente com toStringProperties().
+- DynamicQueue não estava reduzindo o tamanho da fila como esperado.
+- Aprimoramento em bind() para que LibrarySystem funcione adequadamente.
+	- Adicionado load() para "garantir o carregamento" por bind().
+- SystemBase agora possui um toString() adequado e dinâmico.
+
+02.07.2015 - 0.0.5.69
+- Adicionando Time para controle de tempo (long/date) para Primitive.
+- Também foi adicionado TimerTick que funciona como um "cronômetro".
+- LibrarySystem deve ser um sistema para gerenciar bibliotecas (DLL).
+
+
+02.07.2015 - 0.0.5.68
+- Pequenos ajustes no projeto Service para aceitar a propriedade LOG.
+- Atualização do projeto ZIP de acordo com as atualizações de Util.
+
+22.06.2015 - 0.0.5.67
+- Inicialização do projeto para gerenciamento de serviços em Java.
+
+22.06.2015 - 0.0.5.66
+- Adicionando classe com mesma ideia de TimerTest de forma mais dinâmica.
+- StaticArray não possuía possibilidade de definir o tamanho da estrutura.
+	- Agora add incrementa size e update caso o índice esteja em branco.
+- Index não estava definido corretamente, deve ser um Collection.
+- Documentação dos métodos existentes na interface de Queue.
+- StringUtil agora possui formatação de números em "dinheiro".
+	- Para cada três dígitos será adicionado um ponto de separação.
+- TimerTest agora tem tempo em nanosegundos ao invés de milissegundos.
+
+22.06.2015 - 0.0.5.65
+Iteração de StringMap não estava sendo feita corretamente.
+
+22.06.2015 - 0.0.5.64
+- Constantes adicionadas em CharUtil respectivos aos caracteres de 0x00 a 0x20:
+	- Constantes nomeadas por CC_?? como código (int);
+	- Constantes nomeadas por ?? como caracteres (char);
+	- ?? é nome dado a esses caracteres primários.
+
+0.0.5.63
+- Procedimento ajustados em FileUtil para funcionar de forma mais eficiente e especifica.
+
+15.06.2015 - 0.0.5.62
+
+15.06.2015 - 0.0.5.61
+- DynamicMap não havia implementado get(key).
+- Tornando MapElement como classe pública, e renomeado o atributo 'element' para 'value'.
+
+15.06.2015 - 0.0.5.60
+- Aprimoramento na velocidade para conversão entre byte e char/short/int.
+	- Conversões para long não funcionaram e float/double será revisado mais a frente.
+- Pequenos ajuste em SizeUtil para calcular corretamente o tamanho de um objeto.
+
+04.05.2015 - 0.0.5.59
+- Estrutura para mapeamento com chave em número inteiro.
+	- IntegerLittleMap: mapeia com o primeiro dígito.
+	- IntegerAvarageMap: mapeia com os dois primeiros dígitos.
+	- IntegerLargeMap: mapeia com os três primeiros dígitos.
+
+02.05.2015 - 0.0.5.58
+- Implementação do procedimento update na interface Map e nas classes necessárias.
+
+02.05.2015 - 0.0.5.57
+- Estrutura de Dados do tipo Pilha adicionada (Stack, DynamicStack e StaticStack).
+
+02.05.2015 - 0.0.5.56
+- Estrutura para lista com índice adicionado de duas formas diferentes:
+	- AbstractArray: trabalha com índice respectivo ao índice do vetor.
+	- AbstractIndex: apenas ordena os elementos pelo seu índice de inserção.
+- Implementação do procedimento toString para UtilException e UtilRuntimeException.
+
+30.04.2015 - 0.0.5.55
+- Removido todas as coleções anteriores e reimplementado novas coleções e como funcionam.
+- Interfaces separados da abstração do conceito para cada tipo de estrutura.
+- Classes abstratas contendo procedimentos em comuns aos tipos da estrutura.
+- Implementação das estruturas baseado em seu conceito definido (documentação).
+
+19.04.2015 - 0.0.4.54
+- Adicionando UtilRuntimeException para que seja possível criar RuntimeException utilitário.
+- Log agora possui dependência com UtilPrimitive e também utiliza LogRuntimeException.
+- LogRuntimeException é um UtilRuntimeException, não obriga o uso de TryCatch.
+
+16.04.2015 - 0.0.4.53
+- Adicionando procedimentos de valueOf para ShortUitl, LongUtil, FloatUtil e DoubleUtil.
+- ByteUtil agora possui procedimento para fazer cast de valor absoluto (short, int e long).
+
+15.04.2015 - 0.0.4.52
+- ShortUtil agora permite verificar se um valor está em um intervalo, interval(value, min, max).
+- Implementando ObjectDescription para facilitar a modificação de toString nas classes.
+
+14.04.2015 - 0.0.4.51
+- Correção completa na classe que permite o cálculo do tamanho de um determinado objeto, SizeUtil.
+- StringUtil agora permite construir uma string apenas com espaçamentos largos (tabs), getTabs.
+
+13.04.2015 - 0.0.4.50
+- Modificações para Format:
+	- Agora consegue ler colunas vazias da forma como é esperado (vetores e primitivos).
+	- Análise de vetores dinâmicos e estáticos separados em dois procedimentos.
+- Procedimento para permitir o cast de valores absolutos de short/int/long (ShortUtil e IntUtil).
+- StringExtend deve permitir obter o comprimento da string em bytes de acordo com o número de caracteres.
+
+13.04.2015 - 0.0.4.49
+- UtilException agora pode ser criado a partir de uma Exception qualquer.
+- Arrumando StreamException para utilizar o construtor super de UtilException.
+- Pequeno ajuste em SizeUtil para considerar campos das superclasses do objeto.
+	- Ainda será verificado e refeito para funcionar 100% como esperado.
+- Novo método para StringUtil que permite adicionar conteúdos dentro de chaves (exception).
+
+12.04.2015 - 0.0.4.48
+- Modificações para aprimoramento de Format:
+	- Vários métodos renomeados e alguns removidos (desnecessários).
+	- Character para alternativo (?) agora deve vir antes do separador "i,?i" para "i?,i".
+	- Aprimoramento na leitura geral dos dados e deve funcionar de acordo com o esperado.
+	- Propriedade para considerar colunas apenas com espaçamentos adicionado.
+	- Adicionado atributo que permite a utilização de propriedades melhor.
+- StringExtend agora ganha dois novos métodos para melhorar relação entre get, next e back.
+- Nova classe que permite trabalhar completamente com a estrutura de bitwise.
+
+12.04.2015 - 0.0.4.47
+- StringExtend agora permite mover ponteiro para inicio ou fim da string.
+- Modificações para aprimoramento de Format:
+	- Renomeando alguns procedimentos para nomes mais adequados para tal.
+	- Passando throw de checkContentEnd para quem o aplicada, agora retorna booleano.
+
+12.04.2015 - 0.0.3.46
+- Agora subarray em CharUtil não deve causar exception devido ao offset.
+- Documentação adicionada em IntUtil que não havia sido feito.
+
+10.04.2015 - 0.0.3.45
+- Modificações feitas para Format:
+	- Implementação para permitir o trabalho com matriz através de 'm'.
+	- Pequeno ajuste para processArrayClass funcionar com vetores estáticos.
+- IntUtil agora possui método que permite obter o valor de um Integer.
+	- Usado apenas para economizar if/else ou ?: para Integer null.
+	- Um método considera retorno 0 se nulo e outro permite definir o retorno.
+- Modificando toString em StringUtil para retornar null se em listas se necessário.
+- Aprimoramento em BasicStreamDatabaseInput para DatabaseItem funcionar melhor (devido a matriz).
+
+09.04.2015 - 0.0.3.44
+- Format agora deverá informar exatamente qual a coluna que não foi analisada, parse.
+- Também foi implementado o método toString para que Format possa ser visualizado como objeto.
+- UtilException agora permiti que as mensagens possam ser detalhadas de modo mais simples e padrão.
+- Novo método que permite adicionar dados informativos a mensagens (strings) em StringUtil.
+- BasicStreamDatabaseInput estava com uma pequena falha em relação ao required de DatabaseItem.
+- InputDatabase irá utilizar a nova funcionalidade de StreamException (nova de UtilException).
+
+07.04.2015 - 0.0.3.43
+- Log não exibia o pre-fixo para exceção como deveria ser (Exception para EXCEPTION).
+- Procedimento que verifica se uma string pode ser analisada adicionado a StringUtil.
+- Correção onde parseString não considerava negativos ou hexadecimais (byte, short, int e long).
+
+07.04.2015 - 0.0.3.42
+- Pequenas correções para Bracket e Format.
+
+07.04.2015 - 0.0.3.41
+- Reduzindo complexidade ciclomática para alguns dos métodos presentes em Format.
+- Adicionado Bracket que irá fazer o controle na quantidade de conjuntos abertos ou fechados.
+
+06.04.2015 - 0.0.3.40
+- HexaUtil agora possui métodos para conversão de strings para valores primitivos (byte, short, int e long).
+- Reduzindo o nível de complexidade ciclomática de alguns métodos no projeto Primitive.
+	- Incluindo separação de algumas verificações em comum dentre os parseString.
+ 
+06.04.2015 - 0.0.3.39
+- DatabaseItem deverá trabalhar com objetos ao invés de trabalhar com valores primitivos.
+- BasicStreamDatabaseInput ao usar required retorna valores nulos ao invés de zero ou em branco.
+
+06.04.2015 - 0.0.3.38
+- Configurando Stream para aceitar o plugin metrics.
+
+06.04.2015 - 0.0.3.37
+- Propriedade que permite obter dados inexistentes de DatabaseItem.
+	- BasicStreamDatabaseInput considera valores em branco (string e vetores) ou zero para numéricos.
+
+06.04.2015 - 0.0.3.36
+- StringUtil agora permite fazer um toString para vetor de números inteiros.
+- Quebrando parse para reduzir a complexidade ciclomática e melhor manutenção do mesmo, Format.
+- Adicionado vetor contendo valor simbólico para cada character da tabela ASCII até o código 255.
+- Reduzindo número de parâmetros para joinParts em ImageUtil.
+
+05.04.2015 - 0.0.3.35
+- Correção onde dados primitivos tinham valores invertidos entre true/false (exceto inválido, false).
+- Pequeno ajuste onde havia alguns formatos alternativos que não poderiam ser processados adequadamente.
+- Modificado logException(exception) para que sempre que receber registros terminar com quebra de linha.
+- InputDatabase agora deve possuir um nome para que seja identificado ao gerar exception.
+
+05.04.2015 - 0.0.3.34
+- Implementado formatação numérica para US em LogFile e LogConsole.
+- Agora os elementos em DatabaseAbstract devem ser definidos como Object para melhor personalização.
+	- Além disso foi removido as propriedades de constantes (final) para generic e elements.
+
+04.04.2015 - 0.0.3.33
+- Problema onde nextItem começando com conjunto não identificada o mesmo na contagem.
+- Modificando blankValue em processPrimitive para retornar um getNullPrimitive.
+
+04.04.2015 - 0.0.3.32
+- Novo aprimoramento para garantir que trim e blankValues funcione corretamente em Format.
+- IntUtil, ShortUtil, ByteUtil tem seu parseString() implementado sem usar LongUtil, agora funciona corretamente.
+
+04.04.2015 - 0.0.3.31
+- Format agora possui característica que torna o restante de um formato como opcional.
+- LongUtil, IntUtil, ShortUtil, ByteUtil irá aceitar em parseString() conteúdo hexadecimal.
+- InputDatabase corrigido onde não iterava os itens analisados por não definir os tipos dos dados.
+
+04.04.2015 - 0.0.3.30
+- Aprimorando a abstração para a implementação da estrutura de util.database.
+- StringUtil recebe dois novos métodos que ajudam na formação de toString().
+
+31.03.2015 - 0.0.3.29
+- Convertendo todas as classes para o formato de UTF-8 para ANSI.
+
+31.03.2015 - 0.0.3.28
+- Convertendo todas as classes para o formato de UTF-8 para ANSI.
+
+31.03.2015 - 0.0.3.27
+- Ajuste nas referências dos projetos anexados devido a movimentação da workspace.
+
+31.03.2015 - 0.0.3.26
+- Atualizando nome de referência entre projetos para Util Log, Util Primitive e Util Stream.
+- Novo método que permite obter o inicio de uma string sem problemas com o length do mesmo.
+
+29.03.2015 - 0.0.3.25
+- Atualizado InputDatabase para utilizar os novos padrões de Format.
+- DatabaseItem agora permite obter o tamanho do item, quantidade de colunas.
+
+29.03.2015 - 0.0.3.24
+- Nova classe utilitária que permite obter o tamanho de objetos em bytes.
+- StringUtil recebe um novo procedimento que permite criar espaços tabulados por quantidade.
+- Movido ByteUtil.toString(long) para SizeUtil.toString(long) para ficar mais agrupado.
+
+29.03.2015 - 0.0.3.23
+- Procedimentos que permitem obter valores sobre estado da memória RAM em SystemUtil.
+- Modificando Format para ser como um objeto instanciado com propriedades.
+	- Duas novas propriedades para serem usadas quando analisar conteúdos:
+		- trim: remove espaços no inicio e fim do valor das colunas encontradas.
+		- blankValues: permite aceitar valores em brancos considerado-os null.
+
+29.03.2015 - 0.0.3.22
+- Removendo linha em branco.
+
+29.03.2015 - 0.0.3.21
+- Enviando Database que por algum motivo não foi enviado.
+
+29.03.2015 - 0.0.3.20
+- Procedimentos que permite fazer o cast entre vetores Objeto e vetores primitivo.
+	- BooleanUtil, ByteUitl, DoubleUtil, FloatUtil, IntUtil, LongUtil, ShortUtil.
+- DatabaseItem agora permite obter vetores de dados primitivos.
+- Modificações para BasicStreamDatabaseInput:
+	- Atualizado de acordo com as modificações em DatabaseItem.
+	- Modificando getDatabaseItem para retornar null caso índice seja inválido.
+- Modificações para InptuDatabase:
+	- Inserção de dados analisados agora está funcionando como deve ser, processParsed().
+	- Agora a iteração dos itens carregados está a funcionar corretamente.
+
+29.03.2015 - 0.0.3.19
+- Separando Database em IDatabaseIndex e IDatabaseNoIndex para melhor abstração.
+- Implementação de estruturas básicas para banco de dados, Database e DatabaseIndex.
+
+29.03.2015 - 0.0.3.18
+- LogPreferences.filePath é o caminho do arquivo e não o diretório do arquivo.
+- Format ajustado para que os vetores sejam primitivos e não objetos.
+	- Isso não estava permitindo que o uso de cast fosse possível.
+
+29.03.2015 - 0.0.3.17
+- Format agora permite analisar formatos e retorna o nome dos tipos dos dados.
+- Modificações para BasicDatabaseInput:
+	- Removido diversos atributos que não são de respectivo a tal.
+	- Modificado isColumns() para ser implementado por quem herdar.
+- InputDataase agora deve corresponder e utilizar Format.
+- StreamExtend permite criar uma string com os valores próximos ao offset.
+
+29.03.2015 - 0.0.3.16
+- Documentação para TimerTest e UtilException.
+- Adicionando construtores privados para evitar instâncias de classes utilitárias.
+	- Isso é feito apenas para manter um padrão, pois possuem apenas métodos estáticos.
+
+29.03.2015 - 0.0.3.15
+- Interface básica para criação de banco de dados.
+- Estrutura para se criar um banco de dados simples (semelhante a ArrayList).
+
+29.03.2015 - 0.0.3.14
+- Classe que permite formatações de conteúdos em objetos, Format.
+- Nova estrutura de dados para percorrer strings, StringExtend.
+	- FloatUtil e DoubleUtil estava usando essa estrutura que não foi enviada.
+
+29.03.2015 - 0.0.2.13
+- BooleanUtil agora possui valores estáticos dos retorno para parseString().
+- CharUtil não causa crash no uso de subarray() com length negativo.
+
+27.03.2015 - 0.0.2.12
+- Sistema básico para utilização de registros no console e/ou arquivo.
+	- Log: classe principal para inicializar e finalizar sistema.
+	- LogConsole: procedimentos para registro de mensagens no console.
+	- LogFile: procedimentos para registro de mensagens no console.
+	- LogPreferences: preferências de como os registros são feitos.
+	- LogSystem: procedimentos para utilização do sistema de registro.
+
+27.03.2015 - 0.0.1.11
+- Adicionando stream que permite a leitura de arquivos como banco de dados simples.
+- Nova classe que permite analisar valores booleanos como utilitário, BooleanUtil.
+
+27.03.2015 - 0.0.0.10
+- Adicionando métodos que analisam strings e convertem para valores numéricos.
+	- Nesse caso há exception sendo gerada (ByteUtil, ShortUtil, IntUitl e LongUtil).
+- Renomeado alguns métodos que estavam como parseByte que na verdade eram apenas parse.
+
+26.03.2015 - 0.0.0.9
+- BasicStream estava inseridos os bytes em modo invertido.
+- BasicStreamInputOption deve ter options como protected e não private.
+- Getters em BasicStreamInputOption não considerava o nome da opção.
+- InputOption não deve possuir uma lista de opções pois já possui herdado.
+- OutputFile não estava inicializando write como deveria ser feito.
+- Aumentando o ponto offset quando estiver escrevendo bytes.
+- Método toString() para diversas classes Stream implementadas.
+
+22.03.2015 - 0.0.0.8
+- Removendo o 'abstract' de OutputOption.
+
+22.03.2015 - 0.0.0.7
+- Mais alguns ajustes na documentação de streams para entrada de dados.
+- Adicionando estrutura de streams para saída de dados:
+	- Com arquivos em disco: OutputFile;
+	- Com bytes na memória: OutputMemory;
+	- Com arquivos de opções: OutputOption;
+	- Com conexões socket: OutputSocket.
+
+22.03.2015 - 0.0.0.6
+- Mais alguns ajustes na documentação de streams para entrada de dados.
+- Renomeando BasicStreamOption para BasicStreamInputOption como deve ser.
+
+22.03.2015 - 0.0.0.5
+- Pequenos ajustes nas documentações das revisões anteriores (rev3 e rev4).
+- Removendo método flush(), pois não é da estrutura de stream para entrada de dados.
+
+22.03.2015 - 0.0.0.4
+- Base para criação dos diversos tipos de stream.
+- Estruturas básicas dos tipos iniciais de streams.
+- Implementação das streams para entrada de dados:
+	- Com arquivos em disco: InputFile;
+	- Com bytes na memória: InputMemory;
+	- Com arquivos de opções: InputOption;
+	- Com conexões socket: InputSocket.
+
+22.03.2015 - 0.0.0.3
+- Dados básicos do projeto Stream para ser inicializado.
+- Bloqueando envio de diretórios 'bin' que contém arquivos em binário.
+
+22.03.2015 - 0.0.0.2
+- Enviando biblioteca básica das API 'Primitive' e 'Zip'.
