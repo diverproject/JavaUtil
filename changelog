@@ -1,3 +1,7 @@
+20.11.2016 - 1.0.0.127
+- OutputStream não estava atualizando o offset ao utilizar skip.
+- Adicionando alguns diretórios para serem ignorados.
+
 20.11.2016 - 1.0.0.126
 - Movendo todos os projeto para um repositório no Github, versão inicial.
 

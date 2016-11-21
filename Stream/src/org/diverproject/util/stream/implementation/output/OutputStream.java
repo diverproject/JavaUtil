@@ -137,6 +137,7 @@ public class OutputStream extends GenericOutput
 	public void skipe(int bytes)
 	{
 		try {
+			offset += bytes;
 			stream.write(new byte[bytes]);
 		} catch (IOException e) {
 			throw new StreamRuntimeException(e);
