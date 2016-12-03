@@ -50,7 +50,7 @@ public class SocketUtil
 	{
 		byte[] buffer = ByteBuffer.allocate(4).putInt(ip).array();
 
-		return String.format("%d.%d.%d.%d", ByteUtil.putInt(buffer[0]), ByteUtil.putInt(buffer[1]), ByteUtil.putInt(buffer[3]), ByteUtil.putInt(buffer[3]));
+		return String.format("%d.%d.%d.%d", ByteUtil.putInt(buffer[0]), ByteUtil.putInt(buffer[1]), ByteUtil.putInt(buffer[2]), ByteUtil.putInt(buffer[3]));
 	}
 
 	/**

@@ -1,3 +1,7 @@
+03.12.2016 - 1.0.0.128
+- Conversão de um endereço IP int para String corrigido, SocketUtil.socketIP.
+- TimerTick.getTicks deve retornar a quantidade de ticks obtidos no chamado e não o total.
+
 20.11.2016 - 1.0.0.127
 - OutputStream não estava atualizando o offset ao utilizar skip.
 - Adicionando alguns diretórios para serem ignorados.

@@ -81,7 +81,9 @@ public class TimerTick
 		if (count > howMany())
 			count = howMany();
 
-		return (this.count += count);
+		this.count += count;
+
+		return count;
 	}
 
 	/**
