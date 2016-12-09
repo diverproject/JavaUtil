@@ -369,6 +369,32 @@ public class ByteUtil
 	}
 
 	/**
+	 * Verifica se o valor é menor que o limite determinado por parâmetro.
+	 * @param value valor que será verificado se está ou não dentro do mínimo permitido.
+	 * @param min valor mínimo que deve ser permitido retornar após verificar.
+	 * @return se o valor for menor que o permitido, esse por sua vez (min)
+	 * será retornado, caso contrário irá retornar o valor normal.
+	 */
+
+	public static byte min(byte value, byte min)
+	{
+		return value < min ? min : value;
+	}
+
+	/**
+	 * Verifica se o valor é maior que o limite determinado por parâmetro.
+	 * @param value valor que será verificado se está ou não dentro do máximo permitido.
+	 * @param max valor máximo que deve ser permitido retornar após verificar.
+	 * @return se o valor for maior que o permitido, esse por sua vez (max)
+	 * será retornado, caso contrário irá retornar o valor normal.
+	 */
+
+	public static byte max(byte value, byte max)
+	{
+		return value > max ? max : value;
+	}
+
+	/**
 	 * Constrói um novo vetor que irá armazenar valores primitivos.
 	 * @param array vetor de objetos do tipo byte a ser usado.
 	 * @return vetor de valores primitivos do tipo byte criado.

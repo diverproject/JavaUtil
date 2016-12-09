@@ -290,6 +290,17 @@ public class Time
 		return toString().equals("1970/01/01 00:00:00");
 	}
 
+	/**
+	 * Verifica se o tempo do sistema já passou de tanto tempo em relação a este tempo.
+	 * @param expected quantos milissegundos a mais do tempo deverá ser considerado.
+	 * @return true se o tempo do sistema for maior que esse tempo somado de <b>expected</b>.
+	 */
+
+	public boolean pass(long expected)
+	{
+		return time + expected > System.currentTimeMillis();
+	}
+
 	@Override
 	public String toString()
 	{

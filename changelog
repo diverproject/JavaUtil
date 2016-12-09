@@ -1,3 +1,8 @@
+09.12.2016 - 1.0.0.129
+- Novos métodos para ByteUtil permitir realizar operações de condições básicas (maior/menor).
+- Time agora possui método para comparar o tempo dos sistema com o seu próprio tempo.
+- Novos BitWise para atender operações que usam byte, short e long (diferentes números de bit).
+
 03.12.2016 - 1.0.0.128
 - Conversão de um endereço IP int para String corrigido, SocketUtil.socketIP.
 - TimerTick.getTicks deve retornar a quantidade de ticks obtidos no chamado e não o total.
