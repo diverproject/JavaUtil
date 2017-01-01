@@ -1,4 +1,8 @@
-31.12.2016 - 1.0.0.130
+01.01.2017 - 1.0.1.131
+- Subindo novo projeto que permite a criação de um Console para exibição de mensagens do sistema.
+	- Também será permitido executar comandos através deste console se especificado.
+
+01.01.2017 - 1.0.0.130
 - Aprimoramentos para melhor funcionalidade e utilização de LogSystem.
 - Pequenos ajustes em OutputByteArray, GenericOutput e BitWise8.
 
