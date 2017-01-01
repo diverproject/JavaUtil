@@ -169,9 +169,8 @@ public class OutputByteArray extends GenericOutput
 	@Override
 	protected void toString(ObjectDescription description)
 	{
+		description.append("offset", offset);
 		description.append("flushOffset", flushOffset);
 		description.append("flushed", flushed != null);
-
-		super.toString();
 	}
 }

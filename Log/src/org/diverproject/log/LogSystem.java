@@ -216,6 +216,15 @@ public class LogSystem
 	}
 
 	/**
+	 * @return aquisição de quantos traces deverão ser voltados a partir da chamada.
+	 */
+
+	public static int getUpSource()
+	{
+		return upSource;
+	}
+
+	/**
 	 * Permite alterar quem será mostrado no registro como fonte da chamada.
 	 * POde ser usado por métodos gerais que tendem apenas a facilitar codificações.
 	 * @param upSource quantos traces deverão ser voltados a partir da chamada.
@@ -224,7 +233,7 @@ public class LogSystem
 	public static void setUpSource(int upSource)
 	{
 		if (upSource > 0)
-			LogSystem.upSource = upSource;
+			LogSystem.upSource += upSource;
 	}
 
 	/**
@@ -265,8 +274,12 @@ public class LogSystem
 
 			upSource = 0;
 
-			for (LogListener listener : listeners)
-				listener.onMessage(log);	
+			try {
+				for (LogListener listener : listeners)
+					listener.onMessage(log);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

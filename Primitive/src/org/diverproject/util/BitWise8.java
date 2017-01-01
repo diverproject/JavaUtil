@@ -68,7 +68,7 @@ public class BitWise8
 	 * @return aquisição do valor numérico inteiro das propriedades.
 	 */
 
-	public int getValue()
+	public byte getValue()
 	{
 		return value;
 	}

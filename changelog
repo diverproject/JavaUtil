@@ -1,3 +1,7 @@
+31.12.2016 - 1.0.0.130
+- Aprimoramentos para melhor funcionalidade e utilização de LogSystem.
+- Pequenos ajustes em OutputByteArray, GenericOutput e BitWise8.
+
 09.12.2016 - 1.0.0.129
 - Novos métodos para ByteUtil permitir realizar operações de condições básicas (maior/menor).
 - Time agora possui método para comparar o tempo dos sistema com o seu próprio tempo.

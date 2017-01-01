@@ -148,6 +148,12 @@ public abstract class GenericOutput extends GenericStream implements Output
 	@Override
 	public void putString(String str, int length)
 	{
+		if (str == null)
+		{
+			putBytes(new byte[length]);
+			return;
+		}
+
 		if (length > 255)
 			length = 255;
 
