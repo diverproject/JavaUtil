@@ -267,7 +267,7 @@ public class LogSystem
 
 		synchronized (lock)
 		{
-			Log log = new Log();
+			Log log = new Log(throwable);
 			log.setType(type);
 			log.setMessage(message);
 			log.setStackTrace(throwable.getStackTrace()[2 + upSource]);
@@ -453,7 +453,7 @@ public class LogSystem
 	 * @param e exceção gerada do qual será exibida junto com seu nome.
 	 */
 
-	public static void logExeception(Exception e)
+	public static void logException(Exception e)
 	{
 		String message = String.format("%s [%s]\n", e.getMessage(), e.getClass().getSimpleName());
 

@@ -1,3 +1,7 @@
+04.01.2017 - 1.0.1.132
+- Log agora irá carregar o Throwable criado em LogSystem para melhorar a utilização do mesmo.
+- LogSystem.logException corrigido, estava com o nome do método incorreto.
+
 01.01.2017 - 1.0.1.131
 - Subindo novo projeto que permite a criação de um Console para exibição de mensagens do sistema.
 	- Também será permitido executar comandos através deste console se especificado.

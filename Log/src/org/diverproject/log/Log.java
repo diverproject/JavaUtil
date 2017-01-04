@@ -28,6 +28,11 @@ public class Log
 	private String message;
 
 	/**
+	 * Objeto que irá permitir localizar a origem de onde foi feito o registro da mensagem.
+	 */
+	private Throwable throwable;
+
+	/**
 	 * Referência do Trace contendo informações da origem da chamada.
 	 */
 	private StackTraceElement stackTraceElement;
@@ -37,9 +42,9 @@ public class Log
 	 * Essa classe deve ser gerada exclusivamente pelo projeto conform necessário.
 	 */
 
-	Log()
+	Log(Throwable throwable)
 	{
-		
+		this.throwable = throwable;
 	}
 
 	/**
@@ -51,6 +56,15 @@ public class Log
 	public String getType()
 	{
 		return type;
+	}
+
+	/**
+	 * @return aquisição do objeto que identifica a origem do registro.
+	 */
+
+	public Throwable getThrowable()
+	{
+		return throwable;
 	}
 
 	/**

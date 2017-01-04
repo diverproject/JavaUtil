@@ -1,7 +1,7 @@
 package org.diverproject.util.service;
 
 import static org.diverproject.log.LogSystem.logError;
-import static org.diverproject.log.LogSystem.logExeception;
+import static org.diverproject.log.LogSystem.logException;
 import static org.diverproject.log.LogSystem.logNotice;
 import static org.diverproject.log.LogSystem.logWarning;
 
@@ -65,7 +65,7 @@ public final class ServiceSystem extends SystemBase
 			try {
 				service.terminate();
 			} catch (ServiceException e) {
-				logExeception(e);
+				logException(e);
 			}
 		}
 	}
