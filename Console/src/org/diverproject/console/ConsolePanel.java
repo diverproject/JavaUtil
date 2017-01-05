@@ -1,6 +1,7 @@
 package org.diverproject.console;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
@@ -11,9 +12,24 @@ import javax.swing.text.StyleConstants;
 import org.diverproject.util.UtilRuntimeException;
 import org.diverproject.util.collection.StringExtend;
 
+/**
+ * <h1>Painel para Console</h1>
+ *
+ * <p>Esse painel é constituído por um painel de texto (JTextPane) que irá possuir as mensagens registradas em log.
+ * Será usado este componente devido a possibilidade de estilização conforme o tipo de mensagem (coloração).
+ * Por padrão o console poderá exibir apenas um painel deste por vez, sendo possível adicionar outros para troca.</p>
+ *
+ * @author Andrew
+ */
+
 @SuppressWarnings("serial")
 public class ConsolePanel extends JTextPane implements ConsoleActions
 {
+	/**
+	 * Fonte padrão que será usada para exibição dos textos no console.
+	 */
+	public static final Font DEFAULT_FONT = new Font("Courier New", Font.PLAIN, 12);
+
 	/**
 	 * Cor padrão que será usada para exibição dos textos no console.
 	 */
@@ -45,10 +61,31 @@ public class ConsolePanel extends JTextPane implements ConsoleActions
 	 */
 	private String message;
 
+	/**
+	 * Determina se uma mensagem foi imprimida no painel de console.
+	 */
+	private boolean printed;
+
+	/**
+	 * Cria uma nova instância de um painel para console que é encarregado de exibir as mensagens no console.
+	 * Através deste painel é que poderá ser especificado as mensagens e como elas deverão ser exibidas.
+	 */
+
 	public ConsolePanel()
 	{
 		style = addStyle("default", style);
 		document = getDocument();
+
+		setOpaque(false);
+		setEditable(false);
+		setFont(DEFAULT_FONT);
+		setColor(Color.WHITE);
+	}
+
+	@Override
+	public boolean getScrollableTracksViewportWidth()
+	{
+		return true;
 	}
 
 	@Override
@@ -92,6 +129,8 @@ public class ConsolePanel extends JTextPane implements ConsoleActions
 
 		else
 			this.message = message;
+
+		printed = true;
 	}
 
 	/**
@@ -218,5 +257,19 @@ public class ConsolePanel extends JTextPane implements ConsoleActions
 	{
 		StyleConstants.setForeground(style, DEFAULT_COLOR);
 		breakLine = false;
+	}
+
+	/**
+	 * Método usado pelo console para saber quando deve mover o ScrollBar para seu limite.
+	 * Sempre que este método for chamado a atribuição de printed será definido como false.
+	 * @return true se tiver imprimido alguma coisa ou false caso contrário.
+	 */
+
+	public boolean wasPrinted()
+	{
+		boolean has = printed;
+		printed = false;
+
+		return has;
 	}
 }

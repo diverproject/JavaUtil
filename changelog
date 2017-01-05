@@ -1,3 +1,9 @@
+05.01.2017 - 1.0.1.133
+- Melhorias em Console, agora não irá instanciar um ConsolePanel quando criado.
+	- Também não irá mais utilizar Singleton, ficará como abstract para melhorar a dinâmica.
+	- Ações ao receber ação de 'enter' no campo de comandos do console irá chamar enterInput().
+	- Alguns outros métodos também passaram a ter visibilidade public ao invés de private.
+
 04.01.2017 - 1.0.1.132
 - Log agora irá carregar o Throwable criado em LogSystem para melhorar a utilização do mesmo.
 - LogSystem.logException corrigido, estava com o nome do método incorreto.

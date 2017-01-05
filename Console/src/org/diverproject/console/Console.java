@@ -2,7 +2,8 @@ package org.diverproject.console;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -18,7 +19,8 @@ import javax.swing.JMenuBar;
  * <h1>Console</h1>
  *
  * <p>A utilização do console permite exibir uma janela que possui um campo de texto e área de texto.
- * Utiliza-se ainda do padrão de projetos Singleton que determina a possibilidade uma única instância.</p>
+ * Para que seja possível usá-lo será necessário implementado por outra classe através de herança.
+ * Assim todos os métodos estarão sendo implementados e poderão ser utilizados sem problemas.</p>
  *
  * <p>O campo de texto irá permitir executar comandos que devem ser especificado pelo desenvolvedor.
  * Os comandos podem ser interpretados de diversas formas, onde todo o conteúdo digitado no campo
@@ -28,7 +30,6 @@ import javax.swing.JMenuBar;
  * Essas ações irá permitir que nessa área de texto seja exibido mensagens relativas aos comandos.
  * podendo ainda limpar o mesmo ou definir cores para tornar as mensagens mais dinâmicas e nítidas.</p>
  *
- * @see ConsoleActions
  * @see ConsoleListener
  *
  * @author Andrew
@@ -37,12 +38,6 @@ import javax.swing.JMenuBar;
 @SuppressWarnings("serial")
 public abstract class Console extends JFrame
 {
-	/**
-	 * Fonte padrão que será usada para exibição dos textos no console.
-	 */
-	private static final Font DEFAULT_FONT = new Font("Courier New", Font.PLAIN, 12);
-
-
 	/**
 	 * Painel para exibição de textos resultantes dos comandos do console.
 	 */
@@ -99,13 +94,8 @@ public abstract class Console extends JFrame
 		setResizable(false);
 		setFocusable(true);
 
-		consolePanel = new ConsolePanel();
-		consolePanel.setOpaque(false);
-		consolePanel.setEditable(false);
-		consolePanel.setFont(DEFAULT_FONT);
-
 		input = new JTextField();
-		input.setFont(DEFAULT_FONT);
+		input.setFont(ConsolePanel.DEFAULT_FONT);
 		input.setOpaque(false);
 		input.setForeground(ConsolePanel.DEFAULT_COLOR);
 		input.setCaretColor(Color.WHITE);
@@ -115,26 +105,37 @@ public abstract class Console extends JFrame
 			public void keyReleased(KeyEvent e)
 			{
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
-				{
-					callListeners();
-					consolePanel.callPrintMessage();
-					consolePanel.callResetPreferences();
-					callDefaultCommands();
-					callClearInput();
-				}
+					enterInput();
 			}
 		});
 		getContentPane().add(input, BorderLayout.SOUTH);
 
-		scrollPane = new JScrollPane(consolePanel);
+		scrollPane = new JScrollPane();
 		scrollPane.setOpaque(false);
 		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener()
+		{
+			@Override
+			public void adjustmentValueChanged(AdjustmentEvent e)
+			{
+				if (consolePanel != null && consolePanel.wasPrinted())
+					e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			}
+		});
+		/*scrollPane.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener()
+		{
+			@Override
+			public void adjustmentValueChanged(AdjustmentEvent e)
+			{
+				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			}
+		});*/
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		getContentPane().setBackground(Color.BLACK);
 
 		setJMenuBar(createMenuBar());
-
-		consolePanel.callResetPreferences();
 	}
 
 	protected abstract JMenuBar createMenuBar();
@@ -172,28 +173,6 @@ public abstract class Console extends JFrame
 	}
 
 	/**
-	 * Permite definir se a entrada (campo de texto) que recebe os comandos será limpa.
-	 * Se habilitado, após executar o comando o campo de texto deverá ser limpo.
-	 * @param enable true para habilitar ou false para desativar.
-	 */
-
-	public void setClearInput(boolean enable)
-	{
-		clearInput = enable;
-	}
-
-	/**
-	 * Define que o console deverá usar a operação de trim após a execução do comando.
-	 * A operação trim deverá remover espaços que estejam no começo e fim do comando.
-	 * @param enable true para habilitar ou false para desativar.
-	 */
-
-	public void useTrimInput(boolean enable)
-	{
-		useTrimInput = enable;
-	}
-
-	/**
 	 * Ao ser chamado torna o console visível (caso não esteja) como o trás para frente.
 	 * Ao trazer para frente também solicita que o campo de texto do comando seja focado.
 	 */
@@ -222,10 +201,51 @@ public abstract class Console extends JFrame
 	}
 
 	/**
+	 * Procedimento chamado automaticamente sempre que a tecla enter for pressionada na caixa de texto.
+	 * Assim será possível que o console execute as operações especificadas conforme o conteúdo digitado.
+	 */
+
+	public void enterInput()
+	{
+		callListeners();
+
+		if (consolePanel != null)
+		{
+			consolePanel.callPrintMessage();
+			consolePanel.callResetPreferences();
+		}
+
+		callDefaultCommands();
+		callClearInput();				
+	}
+
+	/**
+	 * Permite definir se a entrada (campo de texto) que recebe os comandos será limpa.
+	 * Se habilitado, após executar o comando o campo de texto deverá ser limpo.
+	 * @param enable true para habilitar ou false para desativar.
+	 */
+
+	public void setClearInput(boolean enable)
+	{
+		clearInput = enable;
+	}
+
+	/**
+	 * Define que o console deverá usar a operação de trim após a execução do comando.
+	 * A operação trim deverá remover espaços que estejam no começo e fim do comando.
+	 * @param enable true para habilitar ou false para desativar.
+	 */
+
+	public void useTrimInput(boolean enable)
+	{
+		useTrimInput = enable;
+	}
+
+	/**
 	 * Procedimento interno que irá chamar todos os listeners para processar a mensagem.
 	 */
 
-	private void callListeners()
+	public void callListeners()
 	{
 		String text = input.getText();
 
@@ -245,7 +265,7 @@ public abstract class Console extends JFrame
 	 * Os comandos disponíveis são de <b>exit</b> para fechar e <b>clear</b> para limpar.
 	 */
 
-	private void callDefaultCommands()
+	public void callDefaultCommands()
 	{
 		switch (input.getText())
 		{
@@ -263,11 +283,17 @@ public abstract class Console extends JFrame
 	 * Procedimento interno usado para limpar todos os caracteres exibidos no console.
 	 */
 
-	private void callClearInput()
+	public void callClearInput()
 	{
 		if (clearInput)
 			input.setText("");
 	}
+
+	/**
+	 * Envia uma mensagem ao painel de console para que esta seja exibido no mesmo.
+	 * O painel a ser considerado será aquele que estiver sendo usado no momento.
+	 * @param message mensagem do qual deseja que o painel venha a exibir no console.
+	 */
 
 	public void print(String message)
 	{
@@ -275,10 +301,11 @@ public abstract class Console extends JFrame
 		consolePanel.callPrintMessage();
 	}
 
-	public ConsolePanel getConsolePanel()
-	{
-		return consolePanel;
-	}
+	/**
+	 * Permite definir um painel de console para ser exibido na janela do console.
+	 * No momento em que este for definido para ser utilizado já será exibido.
+	 * @param consolePanel novo painel de console que deve ser exibido.
+	 */
 
 	public void setConsolePanel(ConsolePanel consolePanel)
 	{
