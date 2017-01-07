@@ -1,3 +1,7 @@
+07.01.2017 - 1.0.1.134
+- Pequenos ajustes no chamado de enterInput() em Console.
+- PacketBuilder vai considerar length 0 (igual a zero) como pacote de tamanho dinâmico.
+
 05.01.2017 - 1.0.1.133
 - Melhorias em Console, agora não irá instanciar um ConsolePanel quando criado.
 	- Também não irá mais utilizar Singleton, ficará como abstract para melhorar a dinâmica.

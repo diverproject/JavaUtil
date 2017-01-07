@@ -101,7 +101,7 @@ public class PacketBuilder
 
 				if (stream.available() > 0)
 				{
-					if (length == 0)
+					if (length == -1)
 						length = stream.available();
 
 					if (stream.available() >= length)

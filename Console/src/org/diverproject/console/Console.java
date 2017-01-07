@@ -208,15 +208,8 @@ public abstract class Console extends JFrame
 	public void enterInput()
 	{
 		callListeners();
-
-		if (consolePanel != null)
-		{
-			consolePanel.callPrintMessage();
-			consolePanel.callResetPreferences();
-		}
-
 		callDefaultCommands();
-		callClearInput();				
+		callClearInput();
 	}
 
 	/**
