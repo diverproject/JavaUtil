@@ -8,6 +8,7 @@ import static org.diverproject.util.lang.Bits.makeShort;
 
 import java.io.ByteArrayOutputStream;
 
+import org.diverproject.util.lang.IntUtil;
 import org.diverproject.util.stream.Input;
 import org.diverproject.util.stream.implementation.GenericStream;
 
@@ -259,7 +260,13 @@ public abstract class GenericInput extends GenericStream implements Input
 	@Override
 	public String getString()
 	{
-		return getString(getByte());
+		int size = IntUtil.parseByte(getByte());
+		byte data[] = new byte[size];
+
+		for (int i = 0; i < data.length; i++)
+			data[i] = getByte();
+
+		return new String(data);
 	}
 
 	@Override

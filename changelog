@@ -1,3 +1,6 @@
+07.01.2017 - 1.0.1.135
+- GenericInput.getString() e GenericOutput.putString() não deve considerar dados invertidos.
+
 07.01.2017 - 1.0.1.134
 - Pequenos ajustes no chamado de enterInput() em Console.
 - PacketBuilder vai considerar length 0 (igual a zero) como pacote de tamanho dinâmico.

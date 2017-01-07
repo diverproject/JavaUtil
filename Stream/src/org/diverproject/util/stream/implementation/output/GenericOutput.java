@@ -135,7 +135,9 @@ public abstract class GenericOutput extends GenericStream implements Output
 			str = str.substring(0, 255);
 
 		putByte((byte) str.length());
-		putBytes(str.getBytes());
+
+		for (byte b : str.getBytes())
+			putByte(b);
 	}
 
 	@Override
@@ -157,10 +159,12 @@ public abstract class GenericOutput extends GenericStream implements Output
 		if (length > 255)
 			length = 255;
 
+		byte data[] = str.getBytes();
+
 		for (int i = 0; i < length; i++)
 		{
-			if (i < str.length())
-				putChar(str.charAt(i));
+			if (i < data.length)
+				putByte(data[i]);
 			else
 				putByte((byte) 0);
 		}
