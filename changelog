@@ -1,3 +1,7 @@
+13.01.2017 - 1.0.2.13
+- HexUtil não irá mais utilizar UtilException e sim UtilRuntimeException.
+- Problema durante a iteração de AbstractNumber corrigida.
+
 13.01.2017 - 1.0.1.136
 - Nova classe utilitária com procedimentos genéricos para facilitar a programação.
 - Timer.isNull() será considerado apenas quando o valor de time for igual a zero.

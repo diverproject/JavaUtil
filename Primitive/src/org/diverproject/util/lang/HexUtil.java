@@ -1,6 +1,6 @@
 package org.diverproject.util.lang;
 
-import org.diverproject.util.UtilException;
+import org.diverproject.util.UtilRuntimeException;
 
 /**
  * Classe que permite trabalhar com valores em hexadecimal.
@@ -112,10 +112,10 @@ public class HexUtil
 	 * Obtém o valor numérico que seja considerado um valor hexadecimal.
 	 * @param value string contendo o valor hexadecimal que será convertido.
 	 * @return número obtido após a analise e conversão do hexadecimal.
-	 * @throws UtilException apenas no caso de não ser um valor hexadecimal.
+	 * @throws UtilRuntimeException apenas no caso de não ser um valor hexadecimal.
 	 */
 
-	public static byte parseByte(String value) throws UtilException
+	public static byte parseByte(String value) throws UtilRuntimeException
 	{
 		if (HexUtil.isHex(value, 1))
 		{
@@ -125,7 +125,7 @@ public class HexUtil
 			return Byte.parseByte(value, 16);
 		}
 
-		throw new UtilException("hexadecimal inválido");
+		throw new UtilRuntimeException("hexadecimal inválido");
 	}
 
 	/**
@@ -166,10 +166,10 @@ public class HexUtil
 	 * Obtém o valor numérico que seja considerado um valor hexadecimal.
 	 * @param value string contendo o valor hexadecimal que será convertido.
 	 * @return número obtido após a analise e conversão do hexadecimal.
-	 * @throws UtilException apenas no caso de não ser um valor hexadecimal.
+	 * @throws UtilRuntimeException apenas no caso de não ser um valor hexadecimal.
 	 */
 
-	public static short parseShort(String value) throws UtilException
+	public static short parseShort(String value) throws UtilRuntimeException
 	{
 		if (HexUtil.isHex(value, 2))
 		{
@@ -179,7 +179,7 @@ public class HexUtil
 			return Short.parseShort(value, 16);
 		}
 
-		throw new UtilException("hexadecimal inválido");
+		throw new UtilRuntimeException("hexadecimal inválido");
 	}
 
 	/**
@@ -209,10 +209,10 @@ public class HexUtil
 	 * Obtém o valor numérico que seja considerado um valor hexadecimal.
 	 * @param value string contendo o valor hexadecimal que será convertido.
 	 * @return número obtido após a analise e conversão do hexadecimal.
-	 * @throws UtilException apenas no caso de não ser um valor hexadecimal.
+	 * @throws UtilRuntimeException apenas no caso de não ser um valor hexadecimal.
 	 */
 
-	public static int parseInt(String value) throws UtilException
+	public static int parseInt(String value) throws UtilRuntimeException
 	{
 		if (HexUtil.isHex(value, 4))
 		{
@@ -222,7 +222,7 @@ public class HexUtil
 			return Integer.parseInt(value, 16);
 		}
 
-		throw new UtilException("hexadecimal inválido");
+		throw new UtilRuntimeException("hexadecimal inválido");
 	}
 
 	/**
@@ -252,10 +252,10 @@ public class HexUtil
 	 * Obtém o valor numérico que seja considerado um valor hexadecimal.
 	 * @param value string contendo o valor hexadecimal que será convertido.
 	 * @return número obtido após a analise e conversão do hexadecimal.
-	 * @throws UtilException apenas no caso de não ser um valor hexadecimal.
+	 * @throws UtilRuntimeException apenas no caso de não ser um valor hexadecimal.
 	 */
 
-	public static long parseLong(String value) throws UtilException
+	public static long parseLong(String value) throws UtilRuntimeException
 	{
 		if (HexUtil.isHex(value, 8))
 		{
@@ -265,6 +265,6 @@ public class HexUtil
 			return Long.parseLong(value, 16);
 		}
 
-		throw new UtilException("hexadecimal inválido");
+		throw new UtilRuntimeException("hexadecimal inválido");
 	}
 }

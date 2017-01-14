@@ -467,28 +467,39 @@ public abstract class AbstractNumber<E> extends AbstractCollection<E> implements
 	{
 		return new Iterator<MapItem<Integer, E>>()
 		{
-			private int index;
-			private int iteration;
 			private Node<MapElement<Integer, E>> nodes[] = toArrayNode();
+			private MapItem<Integer, E> node = getNext();
+			private int index;
+
+			private MapItem<Integer, E> getNext()
+			{
+				Node<MapElement<Integer, E>> node = nodes[index];
+
+				while ((index < nodes.length -1 && node == null) || (node != null && node.get() == null))
+					node = nodes[++index];
+
+				if (index == nodes.length - 1)
+					return null;
+
+				nodes[index] = node.getNext();
+				MapItem<Integer, E> item = new MapItem<Integer, E>(node.get().key, node.get().value);
+
+				return item;
+			}
 
 			@Override
 			public boolean hasNext()
 			{
-				return iteration < size;
+				return node != null;
 			}
 
 			@Override
 			public MapItem<Integer, E> next()
 			{
-				Node<MapElement<Integer, E>> node = nodes[index];
+				MapItem<Integer, E> current = node;
+				node = getNext();
 
-				while (node == null)
-					node = nodes[++index];
-
-				iteration++;
-				nodes[index] = node.getNext();
-
-				return new MapItem<Integer, E>(node.get().key, node.get().value);
+				return current;
 			}
 
 			@Override
@@ -496,8 +507,6 @@ public abstract class AbstractNumber<E> extends AbstractCollection<E> implements
 			{
 				ObjectDescription description = new ObjectDescription(getClass());
 
-				description.append("iteration", iteration);
-				description.append("size", size);
 				description.append("nodeIndex", index);
 
 				return description.toString();
