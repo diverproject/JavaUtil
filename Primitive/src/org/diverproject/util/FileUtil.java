@@ -237,6 +237,7 @@ public class FileUtil
 
 	public static void makeDirs(File file)
 	{
+		file = new File(file.getAbsolutePath());
 		File parent = file.getParentFile();
 
 		if (!parent.exists())

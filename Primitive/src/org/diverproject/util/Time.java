@@ -287,7 +287,7 @@ public class Time
 
 	public boolean isNull()
 	{
-		return toString().equals("1970/01/01 00:00:00");
+		return time == 0;
 	}
 
 	/**
@@ -304,6 +304,9 @@ public class Time
 	@Override
 	public String toString()
 	{
+		if (time == 0)
+			return "0000/00/00 00:00:00";
+
 		return toStringFormat("yyyy/MM/dd HH:mm:ss");
 	}
 }
