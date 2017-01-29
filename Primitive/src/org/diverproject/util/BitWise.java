@@ -138,11 +138,11 @@ public class BitWise
 
 		else
 		{
-			String binary = Integer.toString(value);
+			String binary = Integer.toBinaryString(value);
 
 			for (int i = 0; i < binary.length(); i++)
 			{
-				if (binary.charAt(i) == '0')
+				if (binary.charAt(binary.length() - 1 - i) == '0')
 					continue;
 
 				if (i >= propertieNames.length)

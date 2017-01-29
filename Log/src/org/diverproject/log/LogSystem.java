@@ -48,6 +48,11 @@ public class LogSystem
 	private static final String DEBUG_TYPE = "Debug";
 
 	/**
+	 * Tipo de mensagens geradas por logPacket.
+	 */
+	private static final String PACKET_TYPE = "Packet";
+
+	/**
 	 * Tipo de mensagens geradas por logInfo.
 	 */
 	private static final String INFO_TYPE = "Info";
@@ -338,6 +343,34 @@ public class LogSystem
 	 * Imprimi uma determina mensagem formatada no sistema de registros.
 	 * Verifica se o uso de console como também o de arquivo estão habilitados.
 	 * Nesse caso apenas se estiver habilitado o registro de info.
+	 * @param str conteúdo do qual será usado como registro.
+	 */
+
+	public static void logPacket(String str)
+	{
+		internalLog(PACKET_TYPE, str);
+	}
+
+	/**
+	 * Imprimi uma determina mensagem formatada no sistema de registros.
+	 * Verifica se o uso de console como também o de arquivo estão habilitados.
+	 * Nesse caso apenas se estiver habilitado o registro de pacote.
+	 * @param format formado da mensagem que será exibida pelo registro.
+	 * @param args referência dos objetos de acordo com a formatação.
+	 */
+
+	public static void logPacket(String format, Object... args)
+	{
+		if (!LogPreferences.isUseDebug())
+			return;
+
+		internalLog(PACKET_TYPE, String.format(format, args));
+	}
+
+	/**
+	 * Imprimi uma determina mensagem formatada no sistema de registros.
+	 * Verifica se o uso de console como também o de arquivo estão habilitados.
+	 * Nesse caso apenas se estiver habilitado o registro de pacote.
 	 * @param str conteúdo do qual será usado como registro.
 	 */
 

@@ -1,3 +1,9 @@
+29.01.2017 - 1.0.2.14
+- Novo método para registro de mensagens no projeto de Log: logPacket.
+- BitWise não estava exibindo adequadamente suas propriedades em toStringProperties.
+- Excluindo as classes existentes em util.database, não estão implementadas adequadamente.
+- Novo método utilitário para obter-se o tamanho de vetores mesmo que nulos (igual a zero).
+
 13.01.2017 - 1.0.2.13
 - HexUtil não irá mais utilizar UtilException e sim UtilRuntimeException.
 - Problema durante a iteração de AbstractNumber corrigida.

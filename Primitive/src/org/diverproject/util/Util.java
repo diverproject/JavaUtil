@@ -156,6 +156,21 @@ public class Util
 	}
 
 	/**
+	 * Procedimento que verifica o tamanho de um vetor seja ela nula ou não.
+	 * Usado apenas para facilitar verificações que consideram null como zero.
+	 * @param array referência do vetor do qual será verificada.
+	 * @return quantidade de índices no vetor ou 0 (zero) se for null.
+	 */
+
+	public static int size(Object array[])
+	{
+		if (array == null)
+			return 0;
+
+		return array.length;
+	}
+
+	/**
 	 * Procedimento que verifica o tamanho de uma coleção seja ela nula ou não.
 	 * Usado apenas para facilitar verificações que consideram null como zero.
 	 * @param collection referência da coleção do qual será verificada.
