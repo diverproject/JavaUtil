@@ -1,3 +1,8 @@
+11.03.2017 - 1.0.2.16
+- Os dados passados em zip e depois unzip não estava retornando sempre a mesma coisa, ZipUtil.
+	- Problema corrigindo utilizando um buffer temporário sempre do mesmo tamanho para ambos.
+	- Modificado a estratégia do zip de HUFFMAN_ONLY para FILTERED.
+
 11.03.2017 - 1.0.2.15
 - AbstractNumber não estava iterando todos os itens corretamente.
 - Novos métodos static para todos os Biwise*: set, unset e is (operações básicas).
