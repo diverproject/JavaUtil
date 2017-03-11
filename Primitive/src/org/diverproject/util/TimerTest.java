@@ -42,9 +42,12 @@ public class TimerTest
 	 * @return aquisição do teste de duração em milissegundos.
 	 */
 
-	public static double delay()
+	public static long delay()
 	{
-		return (double) ((double) (System.nanoTime() - (double) init) / 1000000D);
+		long delay = (System.nanoTime() - init) / 1000000;
+		init = System.nanoTime();
+
+		return delay;
 	}
 
 	/**
@@ -63,7 +66,7 @@ public class TimerTest
 
 	public static void print()
 	{
-		System.out.printf(Locale.UK, "TimerTest: %.3f ms\n", delay());
+		System.out.printf(Locale.UK, "TimerTest: %dms\n", delay());
 	}
 
 	/**

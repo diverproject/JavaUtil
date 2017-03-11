@@ -170,4 +170,46 @@ public class BitWise16
 
 		return str.toString();
 	}
+
+	/**
+	 * Verifica se esse bitwise atende uma ou mais propriedades com o seu valor atual.
+	 * Irá verificar cada bit do número passado, considerando apenas os binários 1.
+	 * Pode passar mais de um valor utilizando separador | como é usado em java.
+	 * @param value valor od qual será considerado na verificação de existência.
+	 * @param propertie valor da propriedade que será verificada se contém.
+	 * @return true se contiver todas as propriedades passadas ou false caso contrário.
+	 */
+
+	public static boolean is(short value, int propertie)
+	{
+		return (value & propertie) == propertie;
+	}
+
+	/**
+	 * Define uma ou mais propriedades de acordo com a necessidade e objetivo de uso.
+	 * Irá verificar cada bit do número passado, considerando apenas os binários 1.
+	 * Pode passar mais de um valor utilizando separador | como é usado em java.
+	 * Caso a propriedade já tenha sido definida irá continuar como definida.
+	 * @param value valor od qual será alterado conforme a propriedade passada.
+	 * @param propertie valor da propriedade que será definido ao bitwise.
+	 */
+
+	public static short set(short value, int propertie)
+	{
+		return (value |= propertie);
+	}
+
+	/**
+	 * Desconsidera uma ou mais propriedades de acordo com a necessidade e objetivo de uso.
+	 * Irá verificar cada bit do número passado, considerando apenas os binários 1.
+	 * Pode passar mais de um valor utilizando separador | como é usado em java.
+	 * Caso a propriedade não tenha sido definida essa irá continuar sem definir.
+	 * @param value valor od qual será alterado conforme a propriedade passada.
+	 * @param propertie valor da propriedade que será removido do bitwise.
+	 */
+
+	public static short unset(short value, int propertie)
+	{
+		return (value -= value & propertie);
+	}
 }

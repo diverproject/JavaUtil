@@ -74,7 +74,7 @@ public class Util
 
 	public static String format(String format, Object... args)
 	{
-		return String.format(format, args);
+		return String.format(Locale.US, format, args);
 	}
 
 	/**

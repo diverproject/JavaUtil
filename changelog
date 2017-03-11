@@ -1,3 +1,9 @@
+11.03.2017 - 1.0.2.15
+- AbstractNumber não estava iterando todos os itens corretamente.
+- Novos métodos static para todos os Biwise*: set, unset e is (operações básicas).
+- TimerTest corrigido, não estava exibindo a cronometragem corretamente.
+- Util.format deverá sempre considerar a formatação americana, Locale.US.
+
 29.01.2017 - 1.0.2.14
 - Novo método para registro de mensagens no projeto de Log: logPacket.
 - BitWise não estava exibindo adequadamente suas propriedades em toStringProperties.

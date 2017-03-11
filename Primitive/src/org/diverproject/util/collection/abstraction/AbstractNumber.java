@@ -478,13 +478,15 @@ public abstract class AbstractNumber<E> extends AbstractCollection<E> implements
 				while ((index < nodes.length -1 && node == null) || (node != null && node.get() == null))
 					node = nodes[++index];
 
-				if (index == nodes.length - 1)
-					return null;
+				if (node != null)
+				{
+					nodes[index] = node.getNext();
+					MapItem<Integer, E> item = new MapItem<Integer, E>(node.get().key, node.get().value);
 
-				nodes[index] = node.getNext();
-				MapItem<Integer, E> item = new MapItem<Integer, E>(node.get().key, node.get().value);
+					return item;
+				}
 
-				return item;
+				return null;
 			}
 
 			@Override
