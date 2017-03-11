@@ -1,3 +1,8 @@
+11.03.2017 - 1.0.2.17
+- Parte dos problemas onde OutputMapped não funcionava corretamente a partir de um arquivo.
+	- Também está sendo considerado outra forma de acessar os dados de um arquivo.
+	- O espaço disponível para este método de escrita não era dinâmico, sempre estático.
+
 11.03.2017 - 1.0.2.16
 - Os dados passados em zip e depois unzip não estava retornando sempre a mesma coisa, ZipUtil.
 	- Problema corrigindo utilizando um buffer temporário sempre do mesmo tamanho para ambos.

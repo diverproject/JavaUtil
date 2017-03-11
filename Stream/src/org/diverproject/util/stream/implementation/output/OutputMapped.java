@@ -1,8 +1,13 @@
 package org.diverproject.util.stream.implementation.output;
 
+import static org.diverproject.util.Util.i;
+import static org.diverproject.util.lang.IntUtil.limit;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -27,14 +32,19 @@ import org.diverproject.util.stream.StreamRuntimeException;
 public class OutputMapped extends GenericOutput
 {
 	/**
-	 * Stream da saída de dados para liberação dos dados.
+	 * 
 	 */
-	private FileOutputStream fos;
+	private FileChannel channel;
 
 	/**
 	 * Buffer com bytes mapeados do arquivo que será escrito.
 	 */
 	private MappedByteBuffer map;
+
+	/**
+	 * Quantidade de bytes que será aumentado quando necessário redimensionar.
+	 */
+	private int bufferSize;
 
 	/**
 	 * Cria um novo escritor de dados em vetor a partir de um arquivo os os dados serão escritos.
@@ -55,23 +65,15 @@ public class OutputMapped extends GenericOutput
 	 * @throws IOException apenas se houver algum problema para iniciar a stream do arquivo.
 	 */
 
+	@SuppressWarnings("resource")
 	public OutputMapped(File file, long length) throws IOException
 	{
-		this(new FileOutputStream(file), length);
-	}
+		bufferSize = limit(i(length), 1024, 1024 * 16);
 
-	/**
-	 * Cria um novo escritor de dados em vetor a partir de um arquivo os os dados serão escritos.
-	 * @param fos referência do objeto que possui a stream para saída de dados em um arquivo.
-	 * @param length quantos bytes deverão ser possíveis escrever no mapa para alocar espaço.
-	 * @throws IOException apenas se houver algum problema para iniciar a stream do arquivo.
-	 */
+		RandomAccessFile raf = new RandomAccessFile(file.getAbsolutePath(), "rw");
 
-	public OutputMapped(FileOutputStream fos, long length) throws IOException
-	{
-		this(fos.getChannel().map(FileChannel.MapMode.PRIVATE, 0, length));
-
-		this.fos = fos;
+		channel = raf.getChannel();
+		map = channel.map(FileChannel.MapMode.READ_WRITE, 0, bufferSize);
 	}
 
 	/**
@@ -88,16 +90,32 @@ public class OutputMapped extends GenericOutput
 	@Override
 	public void flush()
 	{
-		try {
-			fos.flush();
-		} catch (IOException e) {
-			throw new StreamRuntimeException(e);
+		if (channel != null)
+		{
+			try {
+
+				Class<?> cls = channel.getClass();
+				Method method = cls.getDeclaredMethod("unmap", new Class[]{ MappedByteBuffer.class });
+				method.setAccessible(true);
+				method.invoke(null, new Object[]{ map });
+
+				int length = length();
+
+				map = channel.map(FileChannel.MapMode.READ_WRITE, 0, length + bufferSize);
+				map.position(length);
+
+			} catch (IOException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw new StreamRuntimeException(e);
+			}
 		}
 	}
 
 	@Override
 	public void write(byte b)
 	{
+		if (!map.hasRemaining())
+			flush();
+
 		map.put(b);
 	}
 
@@ -116,20 +134,24 @@ public class OutputMapped extends GenericOutput
 	@Override
 	public boolean isClosed()
 	{
-		throw new UnsupportedOperationException();
+		return !(channel != null && channel.isOpen()) || map == null;
 	}
 
 	@Override
 	public void close()
 	{
-		if (fos != null)
-			try {
-				fos.close();
-			} catch (IOException e) {
-				throw new StreamRuntimeException(e);
-			}
+		if (channel == null && map == null)
+			throw new UnsupportedOperationException("não usou um FileOutputStream");
 
-		throw new UnsupportedOperationException("não usou um FileOutputStream");
+		try {
+
+			this.channel.close();
+			this.channel = null;
+			this.map = null;
+
+		} catch (IOException e) {
+			throw new StreamRuntimeException(e);
+		}
 	}
 
 	@Override
