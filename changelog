@@ -1,3 +1,7 @@
+12.03.2017 - 1.0.2.20
+- ByteUtil.parse* alterados para não utilizar ByteBuffer, apenas nos casos de: long, float e double.
+	- Também foi corrigido um problema na ordem em que os bytes ordenados durante o parse.
+
 12.03.2017 - 1.0.2.19
 - Tornando os métodos zip e unzip mais dinâmicos através de opções por parâmetros.
 	- Agora será possível definir o nível de compressão e tamanho do buffer.

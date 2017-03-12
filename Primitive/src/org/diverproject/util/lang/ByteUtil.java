@@ -107,10 +107,13 @@ public class ByteUtil
 
 	public static byte[] parseChar(char character)
 	{
+		if (character < 256)
+			return new byte[] { (byte) character };
+
 		byte bytes[] = new byte[Character.BYTES];
 
-		bytes[1] = (byte) ((character >> 0) & 255);
-		bytes[0] = (byte) ((character >> 8) & 255);
+		bytes[1] = (byte) ((character >> 8) & 255);
+		bytes[0] = (byte) ((character >> 0) & 255);
 
 		return bytes;
 	}
@@ -125,8 +128,8 @@ public class ByteUtil
 	{
 		byte bytes[] = new byte[Short.BYTES];
 
-		bytes[1] = (byte) ((value >> 0) & 255);
-		bytes[0] = (byte) ((value >> 8) & 255);
+		bytes[1] = (byte) ((value >> 8) & 255);
+		bytes[0] = (byte) ((value >> 0) & 255);
 
 		return bytes;
 	}
@@ -141,10 +144,10 @@ public class ByteUtil
 	{
 		byte bytes[] = new byte[Integer.BYTES];
 
-		bytes[3] = (byte) ((value >> 0) & 255);
-		bytes[2] = (byte) ((value >> 8) & 255);
-		bytes[1] = (byte) ((value >> 16) & 255);
-		bytes[0] = (byte) ((value >> 24) & 255);
+		bytes[3] = (byte) ((value >> 24) & 255);
+		bytes[2] = (byte) ((value >> 16) & 255);
+		bytes[1] = (byte) ((value >> 8) & 255);
+		bytes[0] = (byte) ((value >> 0) & 255);
 
 		return bytes;
 	}
@@ -157,7 +160,18 @@ public class ByteUtil
 
 	public static byte[] parseLong(long value)
 	{
-		return ByteBuffer.allocate(Long.BYTES).putLong(value).array();
+		byte bytes[] = new byte[Long.BYTES];
+
+		bytes[7] = (byte) ((value >> 56) & 255);
+		bytes[6] = (byte) ((value >> 48) & 255);
+		bytes[5] = (byte) ((value >> 40) & 255);
+		bytes[4] = (byte) ((value >> 32) & 255);
+		bytes[3] = (byte) ((value >> 24) & 255);
+		bytes[2] = (byte) ((value >> 16) & 255);
+		bytes[1] = (byte) ((value >> 8) & 255);
+		bytes[0] = (byte) ((value >> 0) & 255);
+
+		return bytes;
 	}
 
 	/**
@@ -168,7 +182,7 @@ public class ByteUtil
 
 	public static byte[] parseFloat(float value)
 	{
-		return ByteBuffer.allocate(Float.BYTES).putFloat(value).array();
+		return parseInt(Float.floatToIntBits(value));
 	}
 
 	/**
@@ -179,7 +193,7 @@ public class ByteUtil
 
 	public static byte[] parseDouble(double value)
 	{
-		return ByteBuffer.allocate(Double.BYTES).putDouble(value).array();
+		return parseLong(Double.doubleToLongBits(value));
 	}
 
 	/**
