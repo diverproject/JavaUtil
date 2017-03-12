@@ -1,16 +1,13 @@
 package org.diverproject.util.stream.implementation.output;
 
+import static org.diverproject.util.Util.format;
 import static org.diverproject.util.Util.i;
-import static org.diverproject.util.lang.IntUtil.limit;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 
+import org.diverproject.util.ObjectDescription;
 import org.diverproject.util.stream.StreamRuntimeException;
 
 /**
@@ -22,9 +19,7 @@ import org.diverproject.util.stream.StreamRuntimeException;
  *
  * @see GenericOutput
  * @see File
- * @see OutputStream
- * @see FileChannel
- * @see MappedByteBuffer
+ * @see FileOutputStream
  *
  * @author Andrew Mello
  */
@@ -32,137 +27,217 @@ import org.diverproject.util.stream.StreamRuntimeException;
 public class OutputMapped extends GenericOutput
 {
 	/**
-	 * 
+	 * Tamanho interno mínimo do buffer que será aceito para escrita de dados.
 	 */
-	private FileChannel channel;
+	public static final int MIN_BUFFER_SIZE = 32;
+
+	/**
+	 * Tamanho interno padrão do buffer que será utilizado para escrita de dados.
+	 */
+	public static final int DEFAULT_BUFFEER_SIZE = 1024;
 
 	/**
 	 * Buffer com bytes mapeados do arquivo que será escrito.
 	 */
-	private MappedByteBuffer map;
+	private byte[] buffer;
 
 	/**
-	 * Quantidade de bytes que será aumentado quando necessário redimensionar.
+	 * Stream para saída de dados de um arquivo em disco.
 	 */
-	private int bufferSize;
+	private FileOutputStream fos;
+
+	/**
+	 * Até quantos bytes podem ser escritos neste arquivo.
+	 */
+	private int length;
+
+	/**
+	 * Ponteiro de escrita dos dados no buffer interno.
+	 */
+	private int bufferOffset;
+
+	/**
+	 * Se habilitado escreve os dados sempre houver um flush nos dados.
+	 */
+	private boolean partialFlush;
 
 	/**
 	 * Cria um novo escritor de dados em vetor a partir de um arquivo os os dados serão escritos.
 	 * @param path caminho completo ou parcial do arquivo do qual será escrito por essa saída.
-	 * @param length quantos bytes deverão ser possíveis escrever no mapa para alocar espaço.
 	 * @throws IOException apenas se houver algum problema para iniciar a stream do arquivo.
 	 */
 
-	public OutputMapped(String path, long length) throws IOException
+	public OutputMapped(String path) throws IOException
 	{
-		this(new File(path), length);
+		this(new File(path));
 	}
 
 	/**
 	 * Cria um novo escritor de dados em vetor a partir de um arquivo os os dados serão escritos.
 	 * @param file referência de um objeto que represente um arquivo em disco no Java.
-	 * @param length quantos bytes deverão ser possíveis escrever no mapa para alocar espaço.
 	 * @throws IOException apenas se houver algum problema para iniciar a stream do arquivo.
 	 */
 
-	@SuppressWarnings("resource")
-	public OutputMapped(File file, long length) throws IOException
+	public OutputMapped(File file) throws IOException
 	{
-		bufferSize = limit(i(length), 1024, 1024 * 16);
-
-		RandomAccessFile raf = new RandomAccessFile(file.getAbsolutePath(), "rw");
-
-		channel = raf.getChannel();
-		map = channel.map(FileChannel.MapMode.READ_WRITE, 0, bufferSize);
-	}
-
-	/**
-	 * Cria um novo escritor de dados em vetor a partir de um arquivo os os dados serão escritos.
-	 * @param mapa referência do buffer de bytes mapeados que será usado para escrever os dados.
-	 * @throws IOException apenas se houver algum problema para iniciar a stream do arquivo.
-	 */
-
-	public OutputMapped(MappedByteBuffer map)
-	{
-		this.map = map;
+		fos = new FileOutputStream(file);
+		buffer = new byte[DEFAULT_BUFFEER_SIZE];
+		length = Integer.MAX_VALUE;
 	}
 
 	@Override
 	public void flush()
 	{
-		if (channel != null)
-		{
-			try {
-
-				Class<?> cls = channel.getClass();
-				Method method = cls.getDeclaredMethod("unmap", new Class[]{ MappedByteBuffer.class });
-				method.setAccessible(true);
-				method.invoke(null, new Object[]{ map });
-
-				int length = length();
-
-				map = channel.map(FileChannel.MapMode.READ_WRITE, 0, length + bufferSize);
-				map.position(length);
-
-			} catch (IOException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				throw new StreamRuntimeException(e);
-			}
-		}
+		forceFlush(partialFlush);
 	}
 
 	@Override
 	public void write(byte b)
 	{
-		if (!map.hasRemaining())
-			flush();
+		if (space() == 0)
+			throw new StreamRuntimeException("espaço máximo alcançado");
 
-		map.put(b);
+		buffer[bufferOffset++] = b;
+
+		if (bufferOffset == buffer.length)
+			flush();
 	}
 
 	@Override
 	public int offset()
 	{
-		return map.position();
+		try {
+			return fos == null ? 0 : i(fos.getChannel().position());
+		} catch (IOException e) {
+			return 0;
+		}
 	}
 
 	@Override
 	public int length()
 	{
-		return map.capacity();
+		return length;
 	}
 
 	@Override
 	public boolean isClosed()
 	{
-		return !(channel != null && channel.isOpen()) || map == null;
+		return fos == null || buffer == null || !fos.getChannel().isOpen();
 	}
 
 	@Override
 	public void close()
 	{
-		if (channel == null && map == null)
-			throw new UnsupportedOperationException("não usou um FileOutputStream");
+		if (fos == null || buffer == null)
+			return;
 
 		try {
 
-			this.channel.close();
-			this.channel = null;
-			this.map = null;
+			forceFlush(true);
+
+			fos.close();
+			buffer = null;
+			fos = null;
 
 		} catch (IOException e) {
-			throw new StreamRuntimeException(e);
+			throw new StreamRuntimeException(e.getMessage());
 		}
 	}
 
 	@Override
 	public void skipe(int bytes)
 	{
-		map.position(map.position() + bytes);
+		try {
+
+			if (bytes > 0)
+				putBytes(new byte[bytes]);
+			else
+			{
+				forceFlush(true);
+				fos.getChannel().position(fos.getChannel().position() + bytes);
+			}
+
+		} catch (IOException e) {
+			throw new StreamRuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
 	public void reset()
 	{
-		map.position(0);
+		try {
+
+			forceFlush(true);
+			fos.getChannel().position(0);
+
+		} catch (IOException e) {
+			throw new StreamRuntimeException(e.getMessage());
+		}
+	}
+
+	public void forceFlush(boolean fosForceFlush)
+	{
+		if (buffer == null)
+			throw new StreamRuntimeException("buffer fechado");
+
+		if (fos == null || !fos.getChannel().isOpen())
+			throw new StreamRuntimeException("stream fechada");
+
+		try {
+
+			fos.write(buffer, 0, bufferOffset);
+			bufferOffset = 0;
+
+			if (fosForceFlush)
+				fos.flush();
+
+		} catch (IOException e) {
+			throw new StreamRuntimeException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Através deste método é possível limitar a quantidade de bytes que poderão ser mapeados na stream.
+	 * @param length quantidade limite de bytes que podem ser escritos nesta stream para saída de dados.
+	 */
+
+	public void setLength(int length)
+	{
+		this.length = length;
+	}
+
+	/**
+	 * Libera os dados em buffer (por garantia) e redimensiona o buffer interno para escrita dos dados.
+	 * Existe um tamanho mínimo do buffer porém não há limite para o tamanho máximo do mesmo.
+	 * @param size quantidade de bytes que o buffer interno da stream irá utilizar.
+	 */
+
+	public void setBufferSize(int size)
+	{
+		if (size < MIN_BUFFER_SIZE)
+			throw new StreamRuntimeException("buffer mínimo é de %d bytes", MIN_BUFFER_SIZE);
+
+		flush();
+
+		buffer = new byte[size];
+	}
+
+	@Override
+	protected void toString(ObjectDescription description)
+	{
+		if (isClosed())
+		{
+			description.append("closed");
+			return;
+		}
+
+		if (buffer != null)
+			description.append("buffer", format("%d/%d", bufferOffset, buffer.length));
+
+		description.append("offset", offset());
+		description.append("length", length());
+		description.append("space", space());
+		description.append("closed", isClosed());
+		description.append("inverted", isInverted());
 	}
 }

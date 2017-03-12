@@ -47,7 +47,7 @@ public class OutputBuilder
 
 	public Output newOutput(File file) throws IOException
 	{
-		return new OutputMapped(file, file.length());
+		return new OutputMapped(file);
 	}
 
 	/**

@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.diverproject.util.ObjectDescription;
 import org.diverproject.util.stream.StreamRuntimeException;
 
 /**
@@ -30,6 +31,16 @@ public class InputReader extends GenericInput
 	private Reader reader;
 
 	/**
+	 * Quantidade de bytes que já foram lidos.
+	 */
+	private int offset;
+
+	/**
+	 * Quantidade limite de bytes que podem ser lidos.
+	 */
+	private int length;
+
+	/**
 	 * Cria uma nova stream através de uma stream de entrada de dados a partir de um arquivo especifico.
 	 * @param path caminho completo ou parcial do arquivo em disco que será usado para leitura.
 	 * @throws FileNotFoundException apenas se o arquivo não for encontrado.
@@ -49,6 +60,8 @@ public class InputReader extends GenericInput
 	public InputReader(File file) throws FileNotFoundException
 	{
 		this(new FileReader(file));
+
+		this.length = (int) file.length();
 	}
 
 	/**
@@ -72,6 +85,7 @@ public class InputReader extends GenericInput
 	public InputReader(BufferedReader br)
 	{
 		this.reader = br;
+		this.length = -1;
 	}
 
 	@Override
@@ -84,8 +98,10 @@ public class InputReader extends GenericInput
 	public byte read()
 	{
 		try {
+			offset++;
 			return (byte) reader.read();
 		} catch (IOException e) {
+			offset--;
 			throw new StreamRuntimeException(e);
 		}
 	}
@@ -93,13 +109,13 @@ public class InputReader extends GenericInput
 	@Override
 	public int offset()
 	{
-		return 0;
+		return offset;
 	}
 
 	@Override
 	public int length()
 	{
-		return 0;
+		return length == -1 ? offset : length;
 	}
 
 	@Override
@@ -113,6 +129,7 @@ public class InputReader extends GenericInput
 	{
 		try {
 			reader.close();
+			reader = null;
 		} catch (IOException e) {
 			throw new StreamRuntimeException(e);
 		}
@@ -132,5 +149,14 @@ public class InputReader extends GenericInput
 	public void reset()
 	{
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected void toString(ObjectDescription description)
+	{
+		description.append("offset", offset());
+		description.append("length", length());
+		description.append("space", space());
+		description.append("inverted", isInverted());
 	}
 }

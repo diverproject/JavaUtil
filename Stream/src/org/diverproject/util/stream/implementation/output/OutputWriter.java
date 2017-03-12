@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 
 import org.diverproject.util.lang.IntUtil;
 import org.diverproject.util.stream.StreamRuntimeException;
@@ -18,7 +17,6 @@ import org.diverproject.util.stream.StreamRuntimeException;
  *
  * @see GenericOutput
  * @see File
- * @see Writer
  * @see BufferedWriter
  *
  * @author Andrew
@@ -34,7 +32,7 @@ public class OutputWriter extends GenericOutput
 	/**
 	 * Stream para saída de dados quando bytes forem escritos.
 	 */
-	private Writer writer;
+	private BufferedWriter writer;
 
 	/**
 	 * Cria uma nova stream através de uma stream de saída de dados em um arquivo especifico.
@@ -122,6 +120,7 @@ public class OutputWriter extends GenericOutput
 	{
 		try {
 			writer.close();
+			writer = null;
 		} catch (IOException e) {
 			throw new StreamRuntimeException(e);
 		}
