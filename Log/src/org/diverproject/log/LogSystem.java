@@ -1,5 +1,8 @@
 package org.diverproject.log;
 
+import static org.diverproject.util.lang.IntUtil.interval;
+import static org.diverproject.util.lang.IntUtil.limit;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,6 +13,7 @@ import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
+import org.diverproject.util.UtilException;
 import org.diverproject.util.collection.List;
 import org.diverproject.util.collection.abstraction.DynamicList;
 
@@ -272,10 +276,18 @@ public class LogSystem
 
 		synchronized (lock)
 		{
+			int index = 2 + upSource;
+
+			if (!interval(index, 0, throwable.getStackTrace().length - 1))
+			{
+				new UtilException("upSource %d inválida", upSource).printStackTrace();
+				index = limit(index, 0, throwable.getStackTrace().length - 1);
+			}
+
 			Log log = new Log(throwable);
 			log.setType(type);
 			log.setMessage(message);
-			log.setStackTrace(throwable.getStackTrace()[2 + upSource]);
+			log.setStackTrace(throwable.getStackTrace()[index]);
 
 			upSource = 0;
 
