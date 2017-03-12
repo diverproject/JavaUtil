@@ -1,3 +1,7 @@
+12.03.2017 - 1.0.2.19
+- Tornando os métodos zip e unzip mais dinâmicos através de opções por parâmetros.
+	- Agora será possível definir o nível de compressão e tamanho do buffer.
+
 12.03.2017 - 1.0.2.18
 - LogSystem irá imprimir uma exception caso upSource seja definido de forma incorreta.
 	- Agora não irá mais causar IndexOutOfBoundException.
