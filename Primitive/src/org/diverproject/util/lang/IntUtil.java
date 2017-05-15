@@ -176,7 +176,7 @@ public class IntUtil
 	{
 		int value = (int) b;
 
-		return value >= 0 ? value : 256 + value;
+		return value >= 0 ? value : value + 256;
 	}
 
 	/**

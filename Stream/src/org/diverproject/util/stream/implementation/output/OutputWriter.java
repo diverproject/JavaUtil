@@ -2,8 +2,10 @@ package org.diverproject.util.stream.implementation.output;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 import org.diverproject.util.lang.IntUtil;
 import org.diverproject.util.stream.StreamRuntimeException;
@@ -53,18 +55,7 @@ public class OutputWriter extends GenericOutput
 
 	public OutputWriter(File file) throws IOException
 	{
-		this(new FileWriter(file));
-	}
-
-	/**
-	 * Cria uma nova stream através de uma stream de saída de dados pré-especificada.
-	 * Para esse caso não será considerado qualquer limite de dados para se escrever.
-	 * @param fw referência da stream que será usada para escrever os dados.
-	 */
-
-	public OutputWriter(FileWriter fw)
-	{
-		this(new BufferedWriter(fw));
+		this(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.ISO_8859_1)));
 	}
 
 	/**
@@ -90,7 +81,8 @@ public class OutputWriter extends GenericOutput
 		try {
 
 			offset++;
-			writer.write(IntUtil.parseByte(b));
+			int ascii = IntUtil.parseByte(b);
+			writer.write(ascii);
 
 		} catch (IOException e) {
 			throw new StreamRuntimeException(e);

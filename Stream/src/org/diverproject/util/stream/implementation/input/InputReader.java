@@ -2,10 +2,9 @@ package org.diverproject.util.stream.implementation.input;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStreamReader;
 
 import org.diverproject.util.ObjectDescription;
 import org.diverproject.util.stream.StreamRuntimeException;
@@ -28,7 +27,7 @@ public class InputReader extends GenericInput
 	/**
 	 * Stream para entrada de dados quando bytes forem lidos.
 	 */
-	private Reader reader;
+	private BufferedReader reader;
 
 	/**
 	 * Quantidade de bytes que já foram lidos.
@@ -43,10 +42,10 @@ public class InputReader extends GenericInput
 	/**
 	 * Cria uma nova stream através de uma stream de entrada de dados a partir de um arquivo especifico.
 	 * @param path caminho completo ou parcial do arquivo em disco que será usado para leitura.
-	 * @throws FileNotFoundException apenas se o arquivo não for encontrado.
+	 * @throws IOException apenas se houver problema em acessar o arquivo para escrita.
 	 */
 
-	public InputReader(String path) throws FileNotFoundException
+	public InputReader(String path) throws IOException
 	{
 		this(new File(path));
 	}
@@ -54,25 +53,14 @@ public class InputReader extends GenericInput
 	/**
 	 * Cria uma nova stream através de uma stream de entrada de dados a partir de um arquivo especifico.
 	 * @param file referência do objeto que identifica um arquivo em disco que será usado.
-	 * @throws FileNotFoundException apenas se o arquivo não for encontrado.
+	 * @throws IOException apenas se houver problema em acessar o arquivo para escrita.
 	 */
 
-	public InputReader(File file) throws FileNotFoundException
+	public InputReader(File file) throws IOException
 	{
-		this(new FileReader(file));
+		this(new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8")));
 
 		this.length = (int) file.length();
-	}
-
-	/**
-	 * Cria uma nova stream através de uma stream de entrada de dados pré-especificada.
-	 * Para esse caso não será considerado qualquer limite de dados para se ler.
-	 * @param fr referência da stream que será usada para escrever os dados.
-	 */
-
-	public InputReader(FileReader fr)
-	{
-		this(new BufferedReader(fr));
 	}
 
 	/**

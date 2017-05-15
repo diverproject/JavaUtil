@@ -70,7 +70,7 @@ public class Bits
 	{
 		bytes = fixBytes(bytes, 2);
 
-		return (short) ((bytes[0] << 8) | (bytes[1] & 0xff));
+		return (short) ((bytes[0] << 8) | (bytes[1] & 255));
 	}
 
 	/**

@@ -112,8 +112,8 @@ public class ByteUtil
 
 		byte bytes[] = new byte[Character.BYTES];
 
-		bytes[1] = (byte) ((character >> 8) & 255);
-		bytes[0] = (byte) ((character >> 0) & 255);
+		bytes[0] = (byte) ((character >> 8) & 255);
+		bytes[1] = (byte) ((character >> 0) & 255);
 
 		return bytes;
 	}
@@ -128,8 +128,8 @@ public class ByteUtil
 	{
 		byte bytes[] = new byte[Short.BYTES];
 
-		bytes[1] = (byte) ((value >> 8) & 255);
-		bytes[0] = (byte) ((value >> 0) & 255);
+		bytes[0] = (byte) ((value >> 8) & 255);
+		bytes[1] = (byte) ((value >> 0) & 255);
 
 		return bytes;
 	}
@@ -144,10 +144,10 @@ public class ByteUtil
 	{
 		byte bytes[] = new byte[Integer.BYTES];
 
-		bytes[3] = (byte) ((value >> 24) & 255);
-		bytes[2] = (byte) ((value >> 16) & 255);
-		bytes[1] = (byte) ((value >> 8) & 255);
-		bytes[0] = (byte) ((value >> 0) & 255);
+		bytes[0] = (byte) ((value >> 24) & 255);
+		bytes[1] = (byte) ((value >> 16) & 255);
+		bytes[2] = (byte) ((value >> 8) & 255);
+		bytes[3] = (byte) ((value >> 0) & 255);
 
 		return bytes;
 	}
@@ -162,14 +162,14 @@ public class ByteUtil
 	{
 		byte bytes[] = new byte[Long.BYTES];
 
-		bytes[7] = (byte) ((value >> 56) & 255);
-		bytes[6] = (byte) ((value >> 48) & 255);
-		bytes[5] = (byte) ((value >> 40) & 255);
-		bytes[4] = (byte) ((value >> 32) & 255);
-		bytes[3] = (byte) ((value >> 24) & 255);
-		bytes[2] = (byte) ((value >> 16) & 255);
-		bytes[1] = (byte) ((value >> 8) & 255);
-		bytes[0] = (byte) ((value >> 0) & 255);
+		bytes[0] = (byte) ((value >> 56) & 255);
+		bytes[1] = (byte) ((value >> 48) & 255);
+		bytes[2] = (byte) ((value >> 40) & 255);
+		bytes[3] = (byte) ((value >> 32) & 255);
+		bytes[4] = (byte) ((value >> 24) & 255);
+		bytes[5] = (byte) ((value >> 16) & 255);
+		bytes[6] = (byte) ((value >> 8) & 255);
+		bytes[7] = (byte) ((value >> 0) & 255);
 
 		return bytes;
 	}

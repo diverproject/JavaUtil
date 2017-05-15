@@ -1,3 +1,9 @@
+15.05.2017 - 1.0.2.22
+- Correção onde parseChar, parsetShort, parseInt e parseLong em ByteUitl não estava funcionando corretamente.
+- Alterando a operação de GenericInput onde getShort, getInt, getLong, getFloat e getDouble estavam invertidos.
+- InputReader agora irá trabalhar com um BufferedReader ao invés de um Reader.
+- Atualizando OutputWriter para que escreva os dados no formato ASCII afim de evita problemas de leitura reversa.
+
 12.03.2017 - 1.0.2.21
 - Pequenas mudanças para que InputReader funcione com maiores informações.
 - OutputMapped funciona muito bem em questão de movimentação no arquivo porém é muito lento (usando FileOutputStream).

@@ -67,7 +67,7 @@ public abstract class GenericInput extends GenericStream implements Input
 		byte b0 = read();
 		byte b1 = read();
 
-		return !isInverted() ?
+		return isInverted() ?
 				makeShort(b1, b0) :
 				makeShort(b0, b1);
 	}
@@ -80,7 +80,7 @@ public abstract class GenericInput extends GenericStream implements Input
 		byte b2 = read();
 		byte b3 = read();
 
-		return !isInverted() ?
+		return isInverted() ?
 				makeInt(b3, b2, b1, b0) :
 				makeInt(b0, b1, b2, b3);
 	}
@@ -97,7 +97,7 @@ public abstract class GenericInput extends GenericStream implements Input
 		byte b6 = read();
 		byte b7 = read();
 
-		return !isInverted() ?
+		return isInverted() ?
 				makeLong(b7, b6, b5, b4, b3, b2, b1, b0) :
 				makeLong(b0, b1, b2, b3, b4, b5, b6, b7);
 	}
@@ -110,7 +110,7 @@ public abstract class GenericInput extends GenericStream implements Input
 		byte b2 = read();
 		byte b3 = read();
 
-		return !isInverted() ?
+		return isInverted() ?
 				makeFloat(b3, b2, b1, b0) :
 				makeFloat(b0, b1, b2, b3);
 	}
@@ -127,7 +127,7 @@ public abstract class GenericInput extends GenericStream implements Input
 		byte b6 = read();
 		byte b7 = read();
 
-		return !isInverted() ?
+		return isInverted() ?
 				makeDouble(b7, b6, b5, b4, b3, b2, b1, b0) :
 				makeDouble(b0, b1, b2, b3, b4, b5, b6, b7);
 	}
