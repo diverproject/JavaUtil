@@ -121,6 +121,20 @@ public class DateUtil
 
 	/**
 	 * Permite obter apenas um pedaço de um objeto do tipo date.
+	 * @param date qual a data desejada para se obter o dia da semana.
+	 * @return dia da semana da data que foi inserida em <b>date</b>.
+	 */
+
+	public static int getWeekday(Date date)
+	{
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+
+		return c.get(Calendar.DAY_OF_WEEK);
+	}
+
+	/**
+	 * Permite obter apenas um pedaço de um objeto do tipo date.
 	 * @param date qual a data desejada para se obter o dia.
 	 * @return dia da data que foi inserida em <b>date</b>.
 	 */

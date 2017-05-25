@@ -1,3 +1,11 @@
+25.05.2017 - 1.0.2.24
+- DateUtil agora permite obter o dia da semana de um Date através de getWeekday().
+- Novo método para SystemUtil que permite definir a interface Nimbus, setNimbusInterface().
+
+25.05.2017 - 1.0.2.23
+- Agora quando Log for LOG_TYPE, toString() irá retornar apenas a mensagem.
+- Os tipos de mensagem (constants) ficarão públicas em LogSystem.
+
 15.05.2017 - 1.0.2.22
 - Correção onde parseChar, parsetShort, parseInt e parseLong em ByteUitl não estava funcionando corretamente.
 - Alterando a operação de GenericInput onde getShort, getInt, getLong, getFloat e getDouble estavam invertidos.

@@ -34,6 +34,20 @@ public class SystemUtil
 	}
 
 	/**
+	 * Deve definir toda a interface das aplicações java como o mesmo estilo do Nimbus.
+	 * Isso tem efeito sobre componentes como JButton, JTextField, JScrollBar e outros.
+	 */
+
+	public static void setNimbusInterface()
+	{
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Exception e) {
+			MessageUtil.showException(e);
+		}
+	}
+
+	/**
 	 * Memória usada é o quanto da memória RAM está sendo utilizado pela aplicação.
 	 * @return aquisição da quantidade em bytes total de memória usada.
 	 */
