@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
+import org.diverproject.util.FileUtil;
 import org.diverproject.util.UtilException;
 import org.diverproject.util.collection.List;
 import org.diverproject.util.collection.abstraction.DynamicList;
@@ -44,42 +45,42 @@ public class LogSystem
 	/**
 	 * Tipo de mensagens geradas por log.
 	 */
-	private static final String LOG_TYPE = "Log";
+	public static final String LOG_TYPE = "Log";
 
 	/**
 	 * Tipo de mensagens geradas por logDebug.
 	 */
-	private static final String DEBUG_TYPE = "Debug";
+	public static final String DEBUG_TYPE = "Debug";
 
 	/**
 	 * Tipo de mensagens geradas por logPacket.
 	 */
-	private static final String PACKET_TYPE = "Packet";
+	public static final String PACKET_TYPE = "Packet";
 
 	/**
 	 * Tipo de mensagens geradas por logInfo.
 	 */
-	private static final String INFO_TYPE = "Info";
+	public static final String INFO_TYPE = "Info";
 
 	/**
 	 * Tipo de mensagens geradas por logNotice.
 	 */
-	private static final String NOTICE_TYPE = "Notice";
+	public static final String NOTICE_TYPE = "Notice";
 
 	/**
 	 * Tipo de mensagens geradas por logWarning.
 	 */
-	private static final String WARNING_TYPE = "Warning";
+	public static final String WARNING_TYPE = "Warning";
 
 	/**
 	 * Tipo de mensagens geradas por logError.
 	 */
-	private static final String ERROR_TYPE = "Error";
+	public static final String ERROR_TYPE = "Error";
 
 	/**
 	 * Tipo de mensagens geradas por logException.
 	 */
-	private static final String EXCEPTION_TYPE = "Exception";
+	public static final String EXCEPTION_TYPE = "Exception";
 
 	/**
 	 * Referência do writer que será usado para salvar as mensagens de registro.
@@ -154,6 +155,7 @@ public class LogSystem
 		try {
 
 			File file = LogPreferences.getFile();
+			FileUtil.makeDirs(file);
 
 			if (file == null)
 				throw new LogException("arquivo para log não definido");

@@ -160,9 +160,9 @@ public class Log
 	@Override
 	public String toString()
 	{
-		if (type != null)
+		if (type != null && type != LogSystem.LOG_TYPE)
 			return String.format("[%s] %s.%s: %s", getType(), getClassName(), getMethodName(), getMessage());
 
-		return String.format("%s.%s: %s", getClassName(), getMethodName(), getMessage());
+		return getMessage();
 	}
 }
