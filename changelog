@@ -1,3 +1,6 @@
+08.06.2017 - 1.0.2.25
+- Nova opção para DateUtil.toDate() aceitar especificação do formatado da data passada.
+
 25.05.2017 - 1.0.2.24
 - DateUtil agora permite obter o dia da semana de um Date através de getWeekday().
 - Novo método para SystemUtil que permite definir a interface Nimbus, setNimbusInterface().

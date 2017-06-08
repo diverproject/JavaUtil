@@ -115,7 +115,20 @@ public class DateUtil
 
 	public static Date toDate(String string) throws ParseException
 	{
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return toDate(string, DEFAULT_PATTERN);
+	}
+
+	/**
+	 * Analisa uma determinada string e tenta convertê-la para um objeto do tipo Date.
+	 * @param string qual a data (em formato string) que será convertida.
+	 * @param format formato em que a data está sendo passada.
+	 * @return objeto do tipo Date convertido.
+	 * @throws ParseException exceção que pode ocorrer durante a conversão.
+	 */
+
+	public static Date toDate(String string, String format) throws ParseException
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.parse(string);
 	}
 
