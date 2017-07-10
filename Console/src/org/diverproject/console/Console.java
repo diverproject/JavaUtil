@@ -295,6 +295,16 @@ public abstract class Console extends JFrame
 	}
 
 	/**
+	 * O painel do console contém o ScrollPane que irá receber as mensagens e exibir na janela do console.
+	 * @return aquisição da referência do painel de console que está sendo utilizado no console.
+	 */
+
+	public ConsolePanel getConsolePanel()
+	{
+		return consolePanel;
+	}
+
+	/**
 	 * Permite definir um painel de console para ser exibido na janela do console.
 	 * No momento em que este for definido para ser utilizado já será exibido.
 	 * @param consolePanel novo painel de console que deve ser exibido.

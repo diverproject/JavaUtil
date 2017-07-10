@@ -131,6 +131,7 @@ public class ConsolePanel extends JTextPane implements ConsoleActions
 			this.message = message;
 
 		printed = true;
+		callPrintMessage();
 	}
 
 	/**

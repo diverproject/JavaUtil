@@ -42,6 +42,7 @@ public class MessageUtil
 
 	public static void showException(Exception e)
 	{
+		e.printStackTrace();
 		JOptionPane.showMessageDialog(MESSAGE_UTIL_COMPONENT, e.getMessage(), e.getClass().getSimpleName(), JOptionPane.ERROR_MESSAGE);
 	}
 

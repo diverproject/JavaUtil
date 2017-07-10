@@ -25,7 +25,7 @@ public class LogFile
 
 	public static void print(Log log)
 	{
-		String formated = String.format(Locale.US, log.toString());
+		String formated = String.format(Locale.US, "%s", log.toString());
 		BufferedWriter writer = LogSystem.getBufferedWrite();
 
 		if (writer == null)

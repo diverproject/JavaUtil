@@ -61,6 +61,11 @@ public class MySQL
 	private String serverTimezone;
 
 	/**
+	 * Converter horários que estejam com zeros em nulo.
+	 */
+	private boolean zeroDateTimeToNull;
+
+	/**
 	 * Faz a conexão com o banco de dados MYSQL de acordo com os dados definidos.
 	 * @throws ClassNotFoundException ocorre caso não haja a biblioteca do MYSQL.
 	 * @throws SQLException algum problema ao tentar se conectar com o banco.
@@ -85,12 +90,20 @@ public class MySQL
 
 		Class.forName("com.mysql.jdbc.Driver");
 
-		String timeZone = "&serverTimezone=America/Sao_Paulo";
+		String arguments = "&serverTimezone=America/Sao_Paulo";
 
 		if (serverTimezone != null)
-			timeZone = "&serverTimezone=" +serverTimezone;
+			arguments = "&serverTimezone=" +serverTimezone;
 
-		String url = String.format("jdbc:mysql://%s:%d/%s?useLegacyDatetimeCode=%s%s", host, port, database, useLegacyDatetimeCode, timeZone);
+		if (useLegacyDatetimeCode)
+			arguments += "&useLegacyDatetimeCode=true";
+		else
+			arguments += "&useLegacyDatetimeCode=false";
+
+		if (zeroDateTimeToNull)
+			arguments += "&zeroDateTimeBehavior=convertToNull";
+
+		String url = String.format("jdbc:mysql://%s:%d/%s?%s", host, port, database, arguments);
 		connection = DriverManager.getConnection(url, username, password);
 	}
 
@@ -196,6 +209,17 @@ public class MySQL
 		this.serverTimezone = serverTimezone;
 	}
 
+	/**
+	 * Através desta opção os resultados das consultas efetuadas no banco de dados que possuir
+	 * um DateTime com valores todos igual a zero será considerado na conversão como nulo.
+	 * @param enable true para habilitar ou false para desabilitar essa opação.
+	 */
+
+	public void setZeroDateTimeToNull(boolean enable)
+	{
+		this.zeroDateTimeToNull = enable;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -209,6 +233,9 @@ public class MySQL
 
 		if (useLegacyDatetimeCode)
 			description.append("useLegacyDatetimeCode");
+		
+		if (zeroDateTimeToNull)
+			description.append("zeroDateTimeToNUll");
 
 		if (serverTimezone != null)
 			description.append("serverTimeZone", serverTimezone);

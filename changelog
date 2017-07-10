@@ -1,3 +1,10 @@
+10.07.2017 - 1.0.2.26
+- Agora podemos obter o ConsolePanel de um Console.
+- Ao chamar setMessage() será chamado callPrintMessage() em ConsolePanel.
+- Problema na formatação das mensagens que causava Exception em LogFile.
+- Modificado showException() para que dê printStackTrace() na exception.
+- Nova propriedade MySQL DateTime zero será considerado como nulo.
+
 08.06.2017 - 1.0.2.25
 - Nova opção para DateUtil.toDate() aceitar especificação do formatado da data passada.
 
