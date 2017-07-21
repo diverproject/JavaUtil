@@ -203,4 +203,18 @@ public class DateUtil
 
 		return 0;
 	}
+
+	/**
+	 * Faz a comparação entre duas datas e verifica se ambas são do mesmo dia, mês e ano (não considera horário).
+	 * @param firstDate Date contendo a primeira data que será feita a comparação.
+	 * @param secondDate Date contendo a segunda data que será feita a comparação.
+	 * @return true se ambas as datas forem do mesmo dia ou false caso contrário.
+	 */
+
+	public static boolean isEquals(Date firstDate, Date secondDate)
+	{
+		return	DateUtil.getDay(firstDate) == DateUtil.getDay(secondDate) &&
+				DateUtil.getMonth(firstDate) == DateUtil.getMonth(secondDate) &&
+				DateUtil.getYear(firstDate) == DateUtil.getYear(secondDate);
+	}
 }

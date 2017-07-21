@@ -1,3 +1,6 @@
+21.07.2017 - 1.0.2.27
+- Novo método para que DateUtil verifique se duas datas são iguais sem considerar horário.
+
 10.07.2017 - 1.0.2.26
 - Agora podemos obter o ConsolePanel de um Console.
 - Ao chamar setMessage() será chamado callPrintMessage() em ConsolePanel.
