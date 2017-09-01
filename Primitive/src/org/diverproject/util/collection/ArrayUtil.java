@@ -2,6 +2,9 @@ package org.diverproject.util.collection;
 
 import java.lang.reflect.Array;
 
+import org.diverproject.util.lang.HexUtil;
+import org.diverproject.util.lang.ShortUtil;
+
 /**
  * <p><h1>Utilitário para Vetores</h1></p>
  *
@@ -219,5 +222,44 @@ public class ArrayUtil
 			array[i] = old[i];
 
 		return array;
+	}
+
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de String com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de String à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
+	public static String join(String[] array, String separator)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = array[0];
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + array[i];
+
+		return join;
+	}
+
+	public static String join(byte[] array, String separator)
+	{
+		return join(array, separator, false);
+	}
+
+	public static String join(byte[] array, String separator, boolean hex)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = hex ? HexUtil.parseShort(ShortUtil.parseByte(array[0])) : Byte.toString(array[0]);
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + (hex ? HexUtil.parseShort(ShortUtil.parseByte(array[i])) : Byte.toString(array[i]));
+
+		return join;
 	}
 }

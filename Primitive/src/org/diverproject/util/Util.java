@@ -131,6 +131,9 @@ public class Util
 	{
 		int index = string.indexOf("\0");
 
+		if (index == 0)
+			return "";
+
 		if (index > 0)
 			return string.substring(0, index);
 

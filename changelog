@@ -1,3 +1,7 @@
+01.09.2017 - 1.0.2.28
+- Novos métodos utilitários para ArrayUtil, join.
+- Correção de strclr() que não era limpo quando todo o conteúdo fosse null.
+
 21.07.2017 - 1.0.2.27
 - Novo método para que DateUtil verifique se duas datas são iguais sem considerar horário.
 
