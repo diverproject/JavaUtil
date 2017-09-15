@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 
 import org.diverproject.util.lang.HexUtil;
 import org.diverproject.util.lang.ShortUtil;
+import org.diverproject.util.lang.StringUtil;
 
 /**
  * <p><h1>Utilitário para Vetores</h1></p>
@@ -245,21 +246,52 @@ public class ArrayUtil
 		return join;
 	}
 
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de byte com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de byte à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
 	public static String join(byte[] array, String separator)
 	{
 		return join(array, separator, false);
 	}
+
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de byte com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de byte à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @param hex determina que os valores em bytes devem ficar no formado hexadecimal.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
 
 	public static String join(byte[] array, String separator, boolean hex)
 	{
 		if (array == null || array.length == 0)
 			return "";
 
-		String join = hex ? HexUtil.parseShort(ShortUtil.parseByte(array[0])) : Byte.toString(array[0]);
+		String join = hex ? joinByteHex(array[0]) : Byte.toString(array[0]);
 
 		for (int i = 1; i < array.length; i++)
-			join += separator + (hex ? HexUtil.parseShort(ShortUtil.parseByte(array[i])) : Byte.toString(array[i]));
+			join += separator + (hex ? joinByteHex(array[i]) : Byte.toString(array[i]));
 
 		return join;
+	}
+
+	/**
+	 * Método interno para converter um valor de byte em um valor hexadecimal de 00 até FF.
+	 * @param b valor do byte que será convertido para um valor hexadecimal.
+	 * @return aquisição da string contendo o formato do byte em hexadecimal.
+	 */
+
+	private static String joinByteHex(byte b)
+	{
+		String hex = HexUtil.parseShort(ShortUtil.parseByte(b));
+		hex = StringUtil.addStartWhile(hex, "0", 2);
+
+		return hex;
 	}
 }

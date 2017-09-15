@@ -1,6 +1,13 @@
 package org.diverproject.util;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 import javax.swing.UIManager;
+
+import org.diverproject.util.collection.ArrayUtil;
 
 /**
  * <p><h1>Utilitários do Sistema</h1></p>
@@ -173,5 +180,34 @@ public class SystemUtil
 	{
 		printMemoryUsage();
 		printMemoryAvaiable();
+	}
+
+	/**
+	 * Permite obter o endereço MAC da placa de rede utilizada no localhost, considerando o seguinte formato:
+	 * <b>FF-FF-FF-FF-FF-FF</b>, o outro getMacAddress() permite determinar o separador que aqui é <b>-</b>.
+	 * @return aquisição do endereço MAC do localhost no formato especificado acima.
+	 * @throws SocketException ocorre se não conseguir criar uma conexão com o localhost.
+	 * @throws UnknownHostException ocorre se o localhost não for encontrado.
+	 */
+
+	public static String getMacAddress() throws SocketException, UnknownHostException
+	{
+		return getMacAddress("-");
+	}
+
+	/**
+	 * Permite obter o endereço MAC da placa de rede utilizada no localhost, considerando o seguinte formato:
+	 * <b>FF-FF-FF-FF-FF-FF</b>, isso considerando que o separador seja definido como <b>-</b> (padrão).
+	 * @param separetor string com o separador que irá ser incrementado entre os valores hexadecimais.
+	 * @return aquisição do endereço MAC do localhost no formato especificado acima.
+	 * @throws SocketException ocorre se não conseguir criar uma conexão com o localhost.
+	 * @throws UnknownHostException ocorre se o localhost não for encontrado.
+	 */
+
+	public static String getMacAddress(String separetor) throws SocketException, UnknownHostException
+	{
+		NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+
+		return ArrayUtil.join(ni.getHardwareAddress(), "-", true);
 	}
 }

@@ -1,3 +1,8 @@
+15.09.2017 - 1.0.2.29
+- Documentação dos métodos join() adicionados na última revisão.
+- Também foi ajustado a formatação do join() de bytes quando em hexadecimal.
+- Novo método para SystemUtil permitir obter o MAC Address da máquina, getMacAddress().
+
 01.09.2017 - 1.0.2.28
 - Novos métodos utilitários para ArrayUtil, join.
 - Correção de strclr() que não era limpo quando todo o conteúdo fosse null.
