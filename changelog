@@ -1,3 +1,6 @@
+19.09.2017 - 1.0.2.30
+- Novo método utilitário que verifica se uma String está vazia (em branco ou nula), empty().
+
 15.09.2017 - 1.0.2.29
 - Documentação dos métodos join() adicionados na última revisão.
 - Também foi ajustado a formatação do join() de bytes quando em hexadecimal.

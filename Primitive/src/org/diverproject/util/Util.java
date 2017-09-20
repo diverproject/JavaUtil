@@ -341,4 +341,16 @@ public class Util
 	{
 		return hours(hours) + minutes(minutes) + seconds(seconds);
 	}
+
+	/**
+	 * Método que permite validar a informação da String, se está em branco.
+	 * Neste caso valida primeiramente se é null depois se está em branco.
+	 * @param str String sujeita a validação conforme especificado.
+	 * @return true se o valor for nulo ou estiver em branco ou false caso contrário.
+	 */
+
+	public static boolean empty(String str)
+	{
+		return str == null || str.isEmpty();
+	}
 }
