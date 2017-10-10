@@ -1,5 +1,6 @@
 package org.diverproject.util.lang;
 
+import java.text.Normalizer;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -845,5 +846,19 @@ public class StringUtil
 		}
 
 		return -1;
+	}
+
+	/**
+	 * Remove acentos dos caracteres trocando eles por caracteres sem acentos.
+	 * @param str string do qual deseja remover os acentos.
+	 * @return string com os caracteres modificados (sem acento).
+	 */
+
+	public static String removeAccents(String str)
+	{
+		str = Normalizer.normalize(str, Normalizer.Form.NFD);
+		str = str.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
+		return str;
 	}
 }
