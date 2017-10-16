@@ -120,7 +120,7 @@ public class InputStream extends GenericInput
 	@Override
 	public boolean isClosed()
 	{
-		throw new UnsupportedOperationException();
+		return stream == null;
 	}
 
 	@Override
@@ -128,6 +128,7 @@ public class InputStream extends GenericInput
 	{
 		try {
 			stream.close();
+			stream = null;
 		} catch (IOException e) {
 			throw new StreamRuntimeException(e);
 		}

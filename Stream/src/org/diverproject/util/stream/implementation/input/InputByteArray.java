@@ -1,5 +1,9 @@
 package org.diverproject.util.stream.implementation.input;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.diverproject.util.stream.StreamRuntimeException;
 
 /**
@@ -57,6 +61,45 @@ public class InputByteArray extends GenericInput
 			this.data = data;
 
 		this.length = data.length;
+	}
+
+	/**
+	 * Cria um novo leitor de dados padrão a partir de um vetor com os bytes lidos de um arquivo.
+	 * @param file referência do objeto para localizar o arquivo em disco.
+	 */
+
+	public InputByteArray(File file)
+	{
+		try {
+
+			FileInputStream fis = new FileInputStream(file);
+			{
+				fis.read((data = new byte[fis.available()]));
+				length = data.length;
+			}
+			fis.close();
+
+		} catch (IOException e) {
+			throw new StreamRuntimeException(e);
+		}
+	}
+
+	/**
+	 * Cria um novo leitor de dados padrão a partir de uma stream para entrada de dados.
+	 * Após a leitura dos dados a stream <b>NÃO SERÁ FECHADA</b> após ler todos os dados.
+	 * @param fis referência da stream para entrada de dados que será considerada.
+	 */
+
+	public InputByteArray(FileInputStream fis)
+	{
+		try {
+
+			fis.read((data = new byte[fis.available()]));
+			length = data.length;
+
+		} catch (IOException e) {
+			throw new StreamRuntimeException(e);
+		}
 	}
 
 	@Override
