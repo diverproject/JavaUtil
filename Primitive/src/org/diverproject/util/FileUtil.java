@@ -100,6 +100,9 @@ public class FileUtil
 	{
 		path = adaptPath(path);
 
+		if (path.lastIndexOf('.') == -1)
+			return "";
+
 		return path.substring(path.lastIndexOf('.') + 1, path.length());
 	}
 

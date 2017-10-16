@@ -457,4 +457,17 @@ public class FloatUtil
 	{
 		return value == null ? valueNull : value;
 	}
+
+	/**
+	 * Verifica se um determinado valor está ou não dentro do limite estabelecido.
+	 * @param value valor do qual deve ser verificado se está no limite.
+	 * @param min limite mínimo do intervalo para ser válido.
+	 * @param max limite máximo do intervalo para ser válido.
+	 * @return true se estiver dentro do limite ou false caso contrário.
+	 */
+
+	public static boolean interval(float value, float min, float max)
+	{
+		return value >= min && value <= max;
+	}
 }

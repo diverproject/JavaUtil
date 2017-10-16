@@ -282,6 +282,111 @@ public class ArrayUtil
 	}
 
 	/**
+	 * Cria uma string concatenando todos os valores de um vetor de short com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de short à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
+	public static String join(short[] array, String separator)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = Short.toString(array[0]);
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + Short.toString(array[0]);
+
+		return join;
+	}
+
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de int com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de int à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
+	public static String join(int[] array, String separator)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = Integer.toString(array[0]);
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + Integer.toString(array[0]);
+
+		return join;
+	}
+
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de long com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de long à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
+	public static String join(long[] array, String separator)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = Long.toString(array[0]);
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + Long.toString(array[0]);
+
+		return join;
+	}
+
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de float com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de float à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
+	public static String join(float[] array, String separator)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = Float.toString(array[0]);
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + Float.toString(array[0]);
+
+		return join;
+	}
+
+	/**
+	 * Cria uma string concatenando todos os valores de um vetor de double com um separador.
+	 * O separador é colocado entre dois valores concatenados, não utilizado no fim e inicio.
+	 * @param array vetor contendo todos os valores de double à concatenar.
+	 * @param separator String contendo o separador que será usando entre os valores.
+	 * @return aquisição da string contendo os valores concatenados com separador.
+	 */
+
+	public static String join(double[] array, String separator)
+	{
+		if (array == null || array.length == 0)
+			return "";
+
+		String join = Double.toString(array[0]);
+
+		for (int i = 1; i < array.length; i++)
+			join += separator + Double.toString(array[0]);
+
+		return join;
+	}
+
+	/**
 	 * Método interno para converter um valor de byte em um valor hexadecimal de 00 até FF.
 	 * @param b valor do byte que será convertido para um valor hexadecimal.
 	 * @return aquisição da string contendo o formato do byte em hexadecimal.
