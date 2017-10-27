@@ -53,6 +53,8 @@ public class UtilException extends Exception
 			message = e.getMessage();
 		else
 			message = StringUtil.addStringException(e.getMessage(), e);
+
+		this.setStackTrace(e.getStackTrace());
 	}
 
 	/**
@@ -71,6 +73,8 @@ public class UtilException extends Exception
 
 		if (e.getClass() != this.getClass())
 			message = StringUtil.addStringException(message, this);
+
+		this.setStackTrace(e.getStackTrace());
 	}
 
 	@Override

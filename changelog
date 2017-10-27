@@ -1,3 +1,7 @@
+26.10.2017 - 1.0.2.34
+- Correção onde ArrayUtil.join() não funcionava corretamente.
+- Modificado UtilRuntimeException e UtilException para considerar StackTrace da Exception original.
+
 16.10.2017 - 1.0.2.33
 - Agora InputByteArray poderá ser criado a partir de um File ou InputStream (java.io).
 	- Portanto InputByteArray vai carregar todos os bytes quando instanciado.

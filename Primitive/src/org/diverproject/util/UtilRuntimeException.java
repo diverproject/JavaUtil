@@ -51,7 +51,7 @@ public class UtilRuntimeException extends RuntimeException
 	{
 		message = StringUtil.addStringException(e.getMessage(), e);
 
-		initCause(e);
+		this.setStackTrace(e.getStackTrace());
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class UtilRuntimeException extends RuntimeException
 		message = StringUtil.addStringData(e.getMessage(), message);
 		message = StringUtil.addStringException(message, this);
 
-		initCause(e);
+		this.setStackTrace(e.getStackTrace());
 	}
 
 	@Override

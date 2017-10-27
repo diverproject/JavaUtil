@@ -297,7 +297,7 @@ public class ArrayUtil
 		String join = Short.toString(array[0]);
 
 		for (int i = 1; i < array.length; i++)
-			join += separator + Short.toString(array[0]);
+			join += separator + Short.toString(array[i]);
 
 		return join;
 	}
@@ -318,7 +318,7 @@ public class ArrayUtil
 		String join = Integer.toString(array[0]);
 
 		for (int i = 1; i < array.length; i++)
-			join += separator + Integer.toString(array[0]);
+			join += separator + Integer.toString(array[i]);
 
 		return join;
 	}
@@ -339,7 +339,7 @@ public class ArrayUtil
 		String join = Long.toString(array[0]);
 
 		for (int i = 1; i < array.length; i++)
-			join += separator + Long.toString(array[0]);
+			join += separator + Long.toString(array[i]);
 
 		return join;
 	}
@@ -360,7 +360,7 @@ public class ArrayUtil
 		String join = Float.toString(array[0]);
 
 		for (int i = 1; i < array.length; i++)
-			join += separator + Float.toString(array[0]);
+			join += separator + Float.toString(array[i]);
 
 		return join;
 	}
@@ -381,7 +381,7 @@ public class ArrayUtil
 		String join = Double.toString(array[0]);
 
 		for (int i = 1; i < array.length; i++)
-			join += separator + Double.toString(array[0]);
+			join += separator + Double.toString(array[i]);
 
 		return join;
 	}
