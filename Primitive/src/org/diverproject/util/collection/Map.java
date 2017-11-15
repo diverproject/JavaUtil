@@ -133,12 +133,12 @@ public interface Map<K, E> extends Collection<E>
 		/**
 		 * Chave usada para identificar o elemento.
 		 */
-		public final K key;
+		private K key;
 
 		/**
 		 * Valor armazenado na chave desse item.
 		 */
-		public final E value;
+		private E value;
 
 		/**
 		 * Constrói um novo item mapeado sendo necessário determinar o seu valor e chave.
@@ -149,6 +149,21 @@ public interface Map<K, E> extends Collection<E>
 		public MapItem(K key, E value)
 		{
 			this.key = key;
+			this.value = value;
+		}
+
+		public K getKey()
+		{
+			return key;
+		}
+	
+		public E getValue()
+		{
+			return value;
+		}
+	
+		public void setValue(E value)
+		{
 			this.value = value;
 		}
 

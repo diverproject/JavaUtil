@@ -30,7 +30,8 @@ public class ObjectDescription
 
 	public ObjectDescription(Class<?> c)
 	{
-		className = c.getSimpleName();
+		if (c != null)
+			className = c.getSimpleName();
 		attributes = "";
 	}
 
@@ -58,9 +59,18 @@ public class ObjectDescription
 	@Override
 	public String toString()
 	{
-		if (attributes.length() > 2)
-			return String.format("%s[%s]", className, attributes.substring(0, attributes.length() - 2));
+		if (className != null)
+		{
+			if (attributes.length() > 2)
+				return String.format("%s[%s]", className, attributes.substring(0, attributes.length() - 2));
 
-		return String.format("%s[%s]", className, attributes);
+			return String.format("%s[%s]", className, attributes);
+		}
+
+		if (attributes.length() > 2)
+			return String.format("%s", attributes.substring(0, attributes.length() - 2));
+
+		return String.format("%s", attributes);
+
 	}
 }

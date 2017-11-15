@@ -1,3 +1,7 @@
+15.11.2017 - 1.0.2.35
+- Encapsulamento da classe Map.Option usando getter e setter.
+- Atualizado ObjectDescription para funcionar com um className nulo.
+
 26.10.2017 - 1.0.2.34
 - Correção onde ArrayUtil.join() não funcionava corretamente.
 - Modificado UtilRuntimeException e UtilException para considerar StackTrace da Exception original.

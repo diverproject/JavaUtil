@@ -147,7 +147,7 @@ public abstract class AbstractNumber<E> extends AbstractCollection<E> implements
 			public Integer next()
 			{
 				iteration++;
-				return items.next().key;
+				return items.next().getKey();
 			}
 
 			@Override
@@ -181,7 +181,7 @@ public abstract class AbstractNumber<E> extends AbstractCollection<E> implements
 			public E next()
 			{
 				iteration++;
-				return items.next().value;
+				return items.next().getValue();
 			}
 
 			@Override
@@ -552,7 +552,7 @@ public abstract class AbstractNumber<E> extends AbstractCollection<E> implements
 		while (iterator.hasNext())
 		{
 			MapItem<Integer, E> map = iterator.next();
-			description.append(Integer.toString(map.key), map.value);
+			description.append(Integer.toString(map.getKey()), map.getValue());
 		}
 
 		return description.toString();
