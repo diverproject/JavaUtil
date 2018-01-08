@@ -1,3 +1,7 @@
+08.01.2018 - 1.0.2.36
+- Adicionado ImageUtil.toImage() para converter um ícone em uma imagem.
+- Nova classe para auxiliar na pintura de um Graphics, PaintUtil.
+
 15.11.2017 - 1.0.2.35
 - Encapsulamento da classe Map.Option usando getter e setter.
 - Atualizado ObjectDescription para funcionar com um className nulo.

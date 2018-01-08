@@ -4,6 +4,9 @@ import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -13,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  * <p><h1>Utilitário para Imagem</h1></p>
@@ -182,5 +187,28 @@ public class ImageUtil
 		} catch (IOException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * Cria uma imagem a partir das informações de imagem de um ícone especificado.
+	 * @param icon referência do ícone do qual será convertido (ImageIcon é mais prático).
+	 * @return aquisição de uma nova imagem com o ícone desenhado no mesmo.
+	 */
+
+	public static Image toImage(Icon icon)
+	{
+		if (icon instanceof ImageIcon)
+			return ((ImageIcon) icon).getImage();
+
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice gd = ge.getDefaultScreenDevice();
+		GraphicsConfiguration gc = gd.getDefaultConfiguration();
+		BufferedImage image = gc.createCompatibleImage(icon.getIconWidth(), icon.getIconHeight());
+
+		Graphics2D g = image.createGraphics();
+		icon.paintIcon(null, g, 0, 0);
+		g.dispose();
+
+		return image;
 	}
 }
