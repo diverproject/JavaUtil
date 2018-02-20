@@ -145,21 +145,22 @@ public class ArrayUtil
 	 * Onde os elementos do vetor antigo serão passados para o novo vetor criado.</p>
 	 * <p>Neste caso como sempre será aumentado o tamanho, todos os índices novos
 	 * serão preenchidos como valores automáticos do java (nulo ou zero).</p>
+	 * @param generic tipo de dados que será usado para criar o vetor.
 	 * @param array vetor que será redimensionado e copiado os elementos
 	 * @param length comprimento do qual o novo vetor deverá possuir.
-	 * @param generic tipo de dados que será usado para criar o vetor.
 	 * @return vetor construído com o comprimento e elementos passados.
 	 */
 
-	public static Object[] increseIn(Object[] array, int length, Class<?> generic)
+	@SuppressWarnings("unchecked")
+	public static <T> T[] increseIn(Class<T> generic, T[] array, int length)
 	{
 		if (array == null || (long) (array.length + length) > Integer.MAX_VALUE)
 			return null;
 
-		Object old[] = array;
+		T old[] = array;
 
 		length += array.length;
-		array = (Object[]) Array.newInstance(generic, length);
+		array = (T[]) Array.newInstance(generic, length);
 
 		for (int i = 0; i < old.length && i < array.length; i++)
 			array[i] = old[i];
@@ -203,21 +204,22 @@ public class ArrayUtil
 	 * <p>Neste caso como sempre será reduzido o tamanho em caso de falta de espaço,
 	 * ou seja, o novo tamanho é menor que a quantidade de elementos do antigo,
 	 * esses elementos serão perdidos do último índice até o tamanho do novo vetor.</p>
+	 * @param generic tipo de dados que será usado para criar o vetor.
 	 * @param array vetor que será redimensionado e copiado os elementos
 	 * @param length comprimento do qual o novo vetor deverá possuir.
-	 * @param generic tipo de dados que será usado para criar o vetor.
 	 * @return vetor construído com o comprimento e elementos passados.
 	 */
 
-	public static Object[] decreaseIn(Object[] array, int length, Class<?> generic)
+	@SuppressWarnings("unchecked")
+	public static <T> T[] decreaseIn(Class<T> generic, T[] array, int length)
 	{
 		if (array == null || length > array.length)
 			return null;
 
-		Object old[] = array;
+		T old[] = array;
 
 		length = array.length - length;
-		array = (Object[]) Array.newInstance(generic, length);
+		array = (T[]) Array.newInstance(generic, length);
 
 		for (int i = 0; i < old.length && i < array.length; i++)
 			array[i] = old[i];

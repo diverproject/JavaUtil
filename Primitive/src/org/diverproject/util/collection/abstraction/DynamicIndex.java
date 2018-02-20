@@ -27,7 +27,7 @@ public class DynamicIndex<E> extends AbstractIndex<E>
 	public boolean add(int index, E element)
 	{
 		if (isFull())
-			elements = (Attach<E>[]) ArrayUtil.increseIn(elements, DEFAULT_SIZE, Attach.class);
+			elements = (Attach<E>[]) ArrayUtil.increseIn(Attach.class, elements, DEFAULT_SIZE);
 
 		Attach<E> attach = new Attach<E>();
 		attach.i = index;
@@ -72,7 +72,7 @@ public class DynamicIndex<E> extends AbstractIndex<E>
 			}
 
 		if (elements.length - size >= DEFAULT_SIZE)
-			elements = (Attach<E>[]) ArrayUtil.decreaseIn(elements, DEFAULT_SIZE, Attach.class);
+			elements = (Attach<E>[]) ArrayUtil.decreaseIn(Attach.class, elements, DEFAULT_SIZE);
 
 		return false;
 	}

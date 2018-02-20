@@ -74,7 +74,7 @@ public class DynamicMap<K, E> extends AbstractMap<K, E>
 	public boolean add(K key, E element)
 	{
 		if (isFull())
-			elements = (MapElement<K, E>[]) ArrayUtil.increseIn(elements, DEFAULT_SIZE);
+			elements = (MapElement<K, E>[]) ArrayUtil.increseIn(MapElement.class, elements, DEFAULT_SIZE);
 
 		elements[size++] = new MapElement<K, E>(key, element);
 
@@ -88,7 +88,7 @@ public class DynamicMap<K, E> extends AbstractMap<K, E>
 		if (super.removeKey(key))
 		{
 			if (elements.length - DEFAULT_SIZE > size)
-				elements = (MapElement<K, E>[]) ArrayUtil.decreaseIn(elements, DEFAULT_SIZE);
+				elements = (MapElement<K, E>[]) ArrayUtil.decreaseIn(MapElement.class, elements, DEFAULT_SIZE);
 
 			return true;
 		}

@@ -1,3 +1,6 @@
+20.02.2018 - 1.0.2.37
+- Modificado increaseIn() e descreaseIn() em ArrayUtil para que o generic funcione como parametrizado.
+
 08.01.2018 - 1.0.2.36
 - Adicionado ImageUtil.toImage() para converter um ícone em uma imagem.
 - Nova classe para auxiliar na pintura de um Graphics, PaintUtil.

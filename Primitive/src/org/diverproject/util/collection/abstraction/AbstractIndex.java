@@ -97,7 +97,7 @@ public abstract class AbstractIndex<E> extends AbstractCollection<E> implements 
 						size--;
 
 						if (elements.length - size >= DEFAULT_SIZE)
-							elements = (Attach<E>[]) ArrayUtil.decreaseIn(elements, DEFAULT_SIZE, Attach.class);
+							elements = (Attach<E>[]) ArrayUtil.decreaseIn(Attach.class, elements, DEFAULT_SIZE);
 					}
 
 		return false;
