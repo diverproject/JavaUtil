@@ -222,8 +222,8 @@ public class StringUtil
 	}
 
 	/**
-	 * Verifica se uma determinada string é composta
-	 * apenas por caracteres numéricos [0~9].
+	 * Verifica se uma determinada string é composta apenas por caracteres numéricos [0~9].
+	 * Não é permitido caracter para definir casa decimal.
 	 * @param str string que será verificada.
 	 * @return true se for ou false caso contrário.
 	 */
@@ -238,6 +238,28 @@ public class StringUtil
 
 		for (char c : str.toCharArray())
 			if (!Character.isDigit(c))
+				return false;
+
+		return true;
+	}
+
+	/**
+	 * Verifica se uma determinada string é composta apenas por caracteres numéricos [0~9].
+	 * Nesse caso permite que a string tenha um . para definir as casas decimais.
+	 * @param str string que será verificada.
+	 * @return true se for ou false caso contrário.
+	 */
+
+	public static boolean isDecimal(String str)
+	{
+		if (str.startsWith("-"))
+			str = str.substring(1, str.length());
+
+		if (str == null || str.length() == 0)
+			return false;
+
+		for (char c : str.toCharArray())
+			if (!Character.isDigit(c) && c != '.')
 				return false;
 
 		return true;

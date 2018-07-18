@@ -66,7 +66,7 @@ public class FloatUtil
 
 	public static boolean isFloat(String str)
 	{
-		if (!StringUtil.isNumber(str))
+		if (!StringUtil.isDecimal(str))
 			return false;
 
 		if (str.length() > (str.startsWith("-") ? 6 : 5))

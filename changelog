@@ -1,3 +1,10 @@
+18.07.2018 - 1.0.2.39
+- Removido nature do plugin metrics que não é mais utilizado devido a incompatibilidade.
+- Adicionado novo método para verificar se uma string possui conteúdo decimal, utilizado por FloatUtil.
+
+25.02.2018 - 1.0.2.38
+- Alterando a configuração dos projetos para utilizarem o JavaSE 1.8 configurado na IDE.
+
 20.02.2018 - 1.0.2.37
 - Modificado increaseIn() e descreaseIn() em ArrayUtil para que o generic funcione como parametrizado.
 
